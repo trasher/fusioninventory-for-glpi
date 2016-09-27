@@ -288,30 +288,30 @@ class ComputerLog extends RestoreDatabase_TestCase {
               ),
           3 => array(
               'id'               => '3',
-              'itemtype'         => 'Software',
+              'itemtype'         => 'Computer',
               'items_id'         => '1',
-              'itemtype_link'    => '',
-              'linked_action'    => '20',
-              'user_name'        => 'Plugin_FusionInventory',
+              'itemtype_link'    => 'NetworkPort',
+              'linked_action'    => '17',
+              'user_name'        => '',
               'id_search_option' => '0',
               'old_value'        => '',
-              'new_value'        => ''
+              'new_value'        => 'pc - em0 (1)'
               ),
           4 => array(
               'id'               => '4',
-              'itemtype'         => 'Software',
-              'items_id'         => '2',
-              'itemtype_link'    => '',
-              'linked_action'    => '20',
-              'user_name'        => 'Plugin_FusionInventory',
+              'itemtype'         => 'Computer',
+              'items_id'         => '1',
+              'itemtype_link'    => 'NetworkPort',
+              'linked_action'    => '17',
+              'user_name'        => '',
               'id_search_option' => '0',
               'old_value'        => '',
-              'new_value'        => ''
+              'new_value'        => 'pc - lo0 (2)'
               ),
           5 => array(
               'id'               => '5',
               'itemtype'         => 'Software',
-              'items_id'         => '3',
+              'items_id'         => '1',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -321,8 +321,8 @@ class ComputerLog extends RestoreDatabase_TestCase {
               ),
           6 => array(
               'id'               => '6',
-              'itemtype'         => 'SoftwareVersion',
-              'items_id'         => '1',
+              'itemtype'         => 'Software',
+              'items_id'         => '2',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -332,8 +332,8 @@ class ComputerLog extends RestoreDatabase_TestCase {
               ),
           7 => array(
               'id'               => '7',
-              'itemtype'         => 'SoftwareVersion',
-              'items_id'         => '2',
+              'itemtype'         => 'Software',
+              'items_id'         => '3',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -344,7 +344,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
           8 => array(
               'id'               => '8',
               'itemtype'         => 'SoftwareVersion',
-              'items_id'         => '3',
+              'items_id'         => '1',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -352,9 +352,31 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'old_value'        => '',
               'new_value'        => ''
               ),
+          9 => array(
+              'id'               => '9',
+              'itemtype'         => 'SoftwareVersion',
+              'items_id'         => '2',
+              'itemtype_link'    => '',
+              'linked_action'    => '20',
+              'user_name'        => 'Plugin_FusionInventory',
+              'id_search_option' => '0',
+              'old_value'        => '',
+              'new_value'        => ''
+              ),
+          10 => array(
+              'id'               => '10',
+              'itemtype'         => 'SoftwareVersion',
+              'items_id'         => '3',
+              'itemtype_link'    => '',
+              'linked_action'    => '20',
+              'user_name'        => 'Plugin_FusionInventory',
+              'id_search_option' => '0',
+              'old_value'        => '',
+              'new_value'        => ''
+              )
       );
 
-      $this->assertEquals($a_reference, $a_logs, "Log must be 8 ".print_r($a_logs, true));
+      $this->assertEquals($a_reference, $a_logs, "Log must be 10 ".print_r($a_logs, true));
       $DB->query('TRUNCATE `glpi_logs`');
 
       // Update a second time and must not have any new lines in glpi_logs
