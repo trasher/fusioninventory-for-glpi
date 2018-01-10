@@ -10,7 +10,8 @@ include_once GLPI_CONFIG_DIR . '/config_db.php';
  * Helper class to restore database from some SQL restore point file
  */
 abstract class RestoreDatabaseTestCase extends CommonTestCase {
-   public static function setUpBeforeClass() {
+   public static function beforeTestMethod($method) {
       self::restore_database();
+      parent::beforeTestMethod($method);
    }
 }

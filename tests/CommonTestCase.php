@@ -90,7 +90,7 @@ abstract class CommonTestCase extends atoum {
    }
 
 
-   protected function setUp() {
+   public function beforeTestMethod() {
       global $CFG_GLPI,$DB;
       $DB = new DB();
       // Force profile in session to SuperAdmin
@@ -157,7 +157,7 @@ abstract class CommonTestCase extends atoum {
       $this->testLogFile('php-errors');
    }
 
-   protected function tearDown() {
+   public function afterTestMethod($method) {
       $this->testSQLlogs();
       $this->testPHPlogs();
    }
