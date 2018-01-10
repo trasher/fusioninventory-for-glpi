@@ -48,7 +48,7 @@ include_once __DIR__ . '/DbTestCase.php';
 include_once __DIR__ . '/APIBaseClass.php';*/
 
 if (!defined('GLPI_ROOT')) {
-   define('GLPI_ROOT', realpath(__DIR__ . '/../../../glpi'));
+   define('GLPI_ROOT', realpath(__DIR__ . '/../../../'));
    define('FUSINV_ROOT', GLPI_ROOT . DIRECTORY_SEPARATOR . '/plugins/fusioninventory');
    /*set_include_path(
       get_include_path() . PATH_SEPARATOR .
