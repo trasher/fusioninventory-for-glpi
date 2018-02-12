@@ -43,7 +43,7 @@ before_script:
 
 script:
  - mysql -u root -e 'select version();'
- - vendor/bin/atoum --debug --force-terminal --bootstrap-file tests/bootstrap.php --no-code-coverage --max-children-number 1 -d tests/units
+ - vendor/bin/atoum --debug --force-terminal --configurations tests/telemetry.php --bootstrap-file tests/bootstrap.php --no-code-coverage --max-children-number 1 -d tests/units
 
 after_script:
  - cp -fr build glpi/plugins/fusioninventory/
