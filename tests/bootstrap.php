@@ -48,6 +48,7 @@ if (!defined('GLPI_ROOT')) {
    define('FUSINV_ROOT', GLPI_ROOT . DIRECTORY_SEPARATOR . '/plugins/fusioninventory');
 }
 
+include_once GLPI_ROOT . '/tests/GLPITestCase.php';
 include_once GLPI_ROOT . '/tests/DbTestCase.php';
 require_once GLPI_ROOT . '/inc/define.php';
 require_once GLPI_ROOT . '/inc/includes.php';
