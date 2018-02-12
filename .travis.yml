@@ -12,36 +12,17 @@ cache:
 matrix:
   include:
     - php: 5.6
-      addons:
-        apt:
-          packages:
-            - ant
-            - xsltproc
     - php: 7.0
       addons:
         mariadb: 10.2
-        apt:
-          packages:
-            - ant
-            - xsltproc
     - php: 7.1
       env: CS=true
       addons:
         mariadb: 10.1
-        apt:
-          packages:
-            - ant
-            - xsltproc
     - php: 7.2
-      addons:
-        apt:
-          packages:
-            - ant
-            - xsltproc
     - php: nightly
   allow_failures:
     - php: nightly
-    - php: 7.2
 
 before_install:
  - cd ..
@@ -54,7 +35,6 @@ before_install:
  - mysql -u root -e "FLUSH PRIVILEGES;"
  - echo '<?php class DB extends DBmysql {var $dbhost = "localhost";var $dbuser = "travis";var $dbpassword= "travis";var $dbdefault = "glpi";}' > glpi/config/config_db.php
  - mv -f fusioninventory-for-glpi glpi/plugins/fusioninventory
- - ant -Dclearsavepoint='true' -Dbasedir=. -f ./glpi/plugins/fusioninventory/phpunit/build.xml composer
 
 before_script:
   - phpenv version-name | grep ^5.[34] && echo "extension=apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; true
@@ -63,12 +43,10 @@ before_script:
 
 script:
  - mysql -u root -e 'select version();'
- - ant -Dclearsavepoint='true' -Dbasedir=. -f ./glpi/plugins/fusioninventory/phpunit/build.xml phpunit.all
+ - vendor/bin/atoum --debug --force-terminal --bootstrap-file tests/bootstrap.php --no-code-coverage --max-children-number 1 -d tests/units
 
 after_script:
  - cp -fr build glpi/plugins/fusioninventory/
  - cd glpi/plugins/fusioninventory/
- - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then composer require satooshi/php-coveralls; fi
- - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then php vendor/bin/coveralls -v; fi
  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then php vendor/bin/robo --no-interaction code:cs; fi
 
