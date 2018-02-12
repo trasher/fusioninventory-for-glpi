@@ -1,4 +1,14 @@
 {
+    "name": "glpi/glpi",
+    "description": "GLPI dependencies",
+    "license": "AGPL-3.0-or-later",
+    "type": "project",
+    "homepage": "http://fusioninventory.org/",
+    "support": {
+        "irc": "irc://irc.freenode.org/fusioninventory",
+        "forum": "http://forum.fusioninventory.org/",
+        "issues": "https://github.com/fusioninventory/fusioninventory-for-glpi/issues"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
