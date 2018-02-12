@@ -90,7 +90,7 @@ abstract class CommonTestCase extends atoum {
    }
 
 
-   public function beforeTestMethod() {
+   public function beforeTestMethod($method) {
       global $CFG_GLPI,$DB;
       $DB = new DB();
       // Force profile in session to SuperAdmin

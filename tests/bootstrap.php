@@ -57,6 +57,8 @@ if (!defined('GLPI_ROOT')) {
    );*/
 }
 
+global $CFG_GLPI;
+require_once GLPI_ROOT . '/inc/define.php';
 require_once GLPI_ROOT . '/inc/includes.php';
 
 include_once __DIR__ . '/CommonTestCase.php';
