@@ -31,7 +31,7 @@ before_install:
  - composer install --no-dev -o
  - mysql -u root -e 'create database glpi;'
  - php scripts/cliinstall.php --db=glpi --user=root --tests
- - cp config/config_db.php ../fusioninventory-for-glpi/tests/
+ - cp tests/config_db.php ../fusioninventory-for-glpi/tests/
  - cd ..
  - mv -f fusioninventory-for-glpi glpi/plugins/fusioninventory
 
