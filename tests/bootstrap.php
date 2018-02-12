@@ -61,10 +61,27 @@ global $CFG_GLPI;
 require_once GLPI_ROOT . '/inc/define.php';
 require_once GLPI_ROOT . '/inc/includes.php';
 
+//install plugin
+$plugin = new \Plugin();
+$plugin->getFromDBbyDir('fusioninventory');
+var_dump($plugin);
+//check from prerequisites as Plugin::install() does not!
+if (!plugin_fusioninventory_check_prerequisites()) {
+   echo "\nPrerequisites are not met!";
+   die(1);
+}
+
+if (!$plugin->isInstalled('fusioninventory')) {
+   call_user_func([$plugin, 'install'], $plugin->getID());
+}
+if (!$plugin->isActivated('fusioninventory')) {
+   call_user_func([$plugin, 'activate'], $plugin->getID());
+}
+
 include_once __DIR__ . '/CommonTestCase.php';
 include_once __DIR__ . '/RestoreDatabaseTestCase.php';
 //include_once __DIR__ . '/LogTest.php';
-include_once __DIR__ . '/CommonFunction.php';
+//include_once __DIR__ . '/CommonFunction.php';
 
 // check folder exists instead of class_exists('\GuzzleHttp\Client'), to prevent global includes
 /*if (file_exists(__DIR__ . '/../vendor/autoload.php') && !file_exists(__DIR__ . '/../vendor/guzzlehttp/guzzle')) {

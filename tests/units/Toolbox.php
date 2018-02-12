@@ -143,7 +143,7 @@ JSON;
       $states_id_computer = $state->importExternal('state_computer');
       $states_id_snmp = $state->importExternal('state_snmp');
 
-      $config = new PluginFusioninventoryConfig();
+      $config = new \PluginFusioninventoryConfig();
       $config->updateValue('states_id_snmp_default', $states_id_snmp);
       $config->updateValue('states_id_default', $states_id_computer);
 
