@@ -36,16 +36,13 @@ define('GLPI_CONFIG_DIR', __DIR__);
 /*define('GLPI_LOG_DIR', __DIR__ . '/files/_log');
 define('GLPI_URI', (getenv('GLPI_URI') ?: 'http://localhost:8088'));
 define('TU_USER', '_test_user');
-define('TU_PASS', 'PhpUnit_4');
+define('TU_PASS', 'PhpUnit_4');*/
 
 if (!file_exists(GLPI_CONFIG_DIR . '/config_db.php')) {
-   die("\nConfiguration file for tests not found\n\nrun: php tools/cliinstall.php --tests ...\n\n");
+   echo "\nConfiguration file for tests not found\n\n";
+   die(1);
 }
 global $CFG_GLPI;
-
-include_once __DIR__ . '/../inc/includes.php';
-include_once __DIR__ . '/DbTestCase.php';
-include_once __DIR__ . '/APIBaseClass.php';*/
 
 if (!defined('GLPI_ROOT')) {
    define('GLPI_ROOT', realpath(__DIR__ . '/../../../'));
@@ -57,14 +54,15 @@ if (!defined('GLPI_ROOT')) {
    );*/
 }
 
-global $CFG_GLPI;
+/*include_once __DIR__ . '/DbTestCase.php';
+include_once __DIR__ . '/APIBaseClass.php';*/
+
 require_once GLPI_ROOT . '/inc/define.php';
 require_once GLPI_ROOT . '/inc/includes.php';
 
 //install plugin
 $plugin = new \Plugin();
 $plugin->getFromDBbyDir('fusioninventory');
-var_dump($plugin);
 //check from prerequisites as Plugin::install() does not!
 if (!plugin_fusioninventory_check_prerequisites()) {
    echo "\nPrerequisites are not met!";

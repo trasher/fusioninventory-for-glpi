@@ -118,7 +118,7 @@ JSON;
          (int)$pfPrinter->add(['printers_id' => $printers_id])
       )->isGreaterThan(0);
       $this->boolean(\PluginFusioninventoryToolbox::isAFusionInventoryDevice($printer))
-         ->isFalse();
+         ->isTrue();
 
       $values  = ['name'         => 'printer2',
                   'is_dynamic'   => 0,
