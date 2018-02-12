@@ -1,6 +1,5 @@
 <?php
 include_once 'bootstrap.php';
-include_once 'CommonFunction.php';
 
 include_once GLPI_ROOT . '/inc/based_config.php';
 include_once GLPI_ROOT . '/inc/dbmysql.class.php';
