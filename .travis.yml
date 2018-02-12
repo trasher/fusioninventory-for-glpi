@@ -34,6 +34,7 @@ before_install:
  - mysql -u root -e "GRANT ALL PRIVILEGES ON glpi.* TO 'travis'@'localhost';"
  - mysql -u root -e "FLUSH PRIVILEGES;"
  - echo '<?php class DB extends DBmysql {var $dbhost = "localhost";var $dbuser = "travis";var $dbpassword= "travis";var $dbdefault = "glpi";}' > glpi/config/config_db.php
+ - cp glpi/config/config_db.php fusioninventory-for-glpi//tests/
  - mv -f fusioninventory-for-glpi glpi/plugins/fusioninventory
 
 before_script:
