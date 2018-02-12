@@ -37,6 +37,7 @@ before_install:
  - mv -f fusioninventory-for-glpi glpi/plugins/fusioninventory
 
 before_script:
+  - composer install --optimize-autoloader
   - phpenv version-name | grep ^5.[34] && echo "extension=apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; true
   - phpenv version-name | grep ^5.[34] && echo "apc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; true
   - php -S localhost:8088 -t glpi > /dev/null 2>&1 &
