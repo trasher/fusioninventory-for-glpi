@@ -48,7 +48,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
    public function testLog() {
       global $DB;
 
-      $DB->connect();
+      //$this->assertEquals(0, countElementsInTable('glpi_logs'), "Log must be empty");
 
       $pfFormatconvert  = new PluginFusioninventoryFormatconvert();
       $computer         = new Computer();

@@ -11,14 +11,14 @@ abstract class Common_TestCase extends TestCase {
    }
 
 
-   public static function restore_database() {
+   /*public static function restore_database() {
 
       self::drop_database();
       self::load_mysql_file('./save.sql');
-   }
+   }*/
 
 
-   public static function load_mysql_file($filename) {
+   /*public static function load_mysql_file($filename) {
 
       self::assertFileExists($filename, 'File '.$filename.' does not exist!');
 
@@ -54,10 +54,9 @@ abstract class Common_TestCase extends TestCase {
          "Failed to drop GLPI database:\n".
          implode("\n", $result['output'])
       );
-   }
+   }*/
 
-
-   protected function setUp() {
+   public static function setUpBeforeClass() {
       global $CFG_GLPI, $DB;
 
       // Force profile in session to SuperAdmin
@@ -72,11 +71,11 @@ abstract class Common_TestCase extends TestCase {
       include_once(GLPI_CONFIG_DIR . "/config_db.php");
       include_once (GLPI_ROOT . "/inc/define.php");
 
-      $DB = new DB();
-      $DB->connect();
+      //$DB = new DB();
+      //$DB->connect();
+      $DB->beginTransaction();
 
       $plugin = new Plugin();
-      $DB->connect();
       require_once(GLPI_ROOT . "/plugins/fusioninventory/inc/module.class.php");
       $plugin->getFromDBbyDir("fusioninventory");
       $plugin->activate($plugin->fields['id']);
@@ -110,6 +109,4 @@ abstract class Common_TestCase extends TestCase {
       $GLPIlog->testSQLlogs();
       $GLPIlog->testPHPlogs();
    }
-
-
 }

@@ -10,7 +10,7 @@ global $CFG_GLPI;
 include('./glpi/inc/includes.php');
 
 if (!defined('FUSINV_ROOT')) {
-   define('FUSINV_ROOT', GLPI_ROOT . DIRECTORY_SEPARATOR . '/plugins/fusioninventory');
+   define('FUSINV_ROOT', GLPI_ROOT . '/plugins/fusioninventory');
    set_include_path(
       get_include_path() . PATH_SEPARATOR .
       GLPI_ROOT . PATH_SEPARATOR .
@@ -34,4 +34,4 @@ if (!isset($_SESSION['glpilanguage'])) {
 include_once("Common_TestCase.php");
 include_once("RestoreDatabase_TestCase.php");
 include_once("LogTest.php");
-include_once("commonfunction.php");
+//include_once("commonfunction.php");
