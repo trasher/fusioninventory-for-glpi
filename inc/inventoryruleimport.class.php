@@ -710,13 +710,17 @@ class PluginFusioninventoryInventoryRuleImport extends Rule {
 
 
    /**
-    * Code execution of actions of the rule
+    * Execute the actions as defined in the rule.
     *
-    * @param array $output
-    * @param array $params
-    * @return array
-    */
-   function executeActions($output, $params) {
+    * @since 9.3.2 Added $input parameter
+    *
+    * @param array $output  the fields to manipulate
+    * @param array $params  parameters
+    * @param array $input   the input data
+    *
+    * @return array Updated output
+   **/
+   function executeActions($output, $params, array $input = []) {
       if (isset($params['class'])) {
          $class = $params['class'];
       } else if (isset($_SESSION['plugin_fusioninventory_classrulepassed'])) {
