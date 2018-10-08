@@ -11,14 +11,14 @@ abstract class Common_TestCase extends TestCase {
    }
 
 
-   /*public static function restore_database() {
+   public static function restore_database() {
 
       self::drop_database();
       self::load_mysql_file('./save.sql');
-   }*/
+   }
 
 
-   /*public static function load_mysql_file($filename) {
+   public static function load_mysql_file($filename) {
 
       self::assertFileExists($filename, 'File '.$filename.' does not exist!');
 
@@ -54,7 +54,7 @@ abstract class Common_TestCase extends TestCase {
          "Failed to drop GLPI database:\n".
          implode("\n", $result['output'])
       );
-   }*/
+   }
 
    public static function setUpBeforeClass() {
       global $CFG_GLPI, $DB;
