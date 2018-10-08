@@ -68,8 +68,6 @@ abstract class Common_TestCase extends TestCase {
 
       include (GLPI_ROOT . "/inc/based_config.php");
       include_once (GLPI_ROOT . "/inc/config.php");
-      include_once(GLPI_CONFIG_DIR . "/config_db.php");
-      include_once (GLPI_ROOT . "/inc/define.php");
 
       //$DB = new DB();
       //$DB->connect();

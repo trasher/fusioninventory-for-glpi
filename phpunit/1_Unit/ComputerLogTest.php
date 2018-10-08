@@ -248,16 +248,18 @@ class ComputerLog extends RestoreDatabase_TestCase {
       $this->a_inventory['fusioninventorycomputer']['serialized_inventory'] =
                Toolbox::addslashes_deep($serialized);
 
-      $computer->add(['serial' => 'XB63J7D',
-                           'entities_id' => 0]);
+      $cid = $computer->add([
+         'serial'       => 'XB63J7D',
+         'entities_id'  => 0
+      ]);
 
       // truncate glpi_logs
-      $DB->query('TRUNCATE TABLE `glpi_logs`;');
+      $DB->query('DELETE FROM `glpi_logs`;');
 
       $this->assertEquals(0, countElementsInTable('glpi_logs'), "Log must be empty (truncate)");
 
       $_SESSION['glpiactive_entity'] = 0;
-      $pfiComputerLib->updateComputer($this->a_inventory, 1, true);
+      $pfiComputerLib->updateComputer($this->a_inventory, $cid, true);
 
       $a_logs = getAllDatasFromTable('glpi_logs');
       foreach ($a_logs as $id=>$data) {
@@ -268,9 +270,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
 
       $a_reference = [
           1 => [
-              'id'               => '1',
               'itemtype'         => 'DeviceProcessor',
-              'items_id'         => '1',
               'itemtype_link'    => '0',
               'linked_action'    => '20',
               'user_name'        => '',
@@ -279,9 +279,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
               ],
           2 => [
-              'id'               => '2',
               'itemtype'         => 'DeviceMemory',
-              'items_id'         => '1',
               'itemtype_link'    => '0',
               'linked_action'    => '20',
               'user_name'        => '',
@@ -290,9 +288,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
               ],
           3 => [
-              'id'               => '3',
               'itemtype'         => 'Software',
-              'items_id'         => '1',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -301,9 +297,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
               ],
           4 => [
-              'id'               => '4',
               'itemtype'         => 'Software',
-              'items_id'         => '2',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -312,9 +306,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
               ],
           5 => [
-              'id'               => '5',
               'itemtype'         => 'Software',
-              'items_id'         => '3',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -323,9 +315,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
               ],
           6 => [
-              'id'               => '6',
               'itemtype'         => 'SoftwareVersion',
-              'items_id'         => '1',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -334,9 +324,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
               ],
           7 => [
-              'id'               => '7',
               'itemtype'         => 'SoftwareVersion',
-              'items_id'         => '2',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -345,9 +333,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
               ],
           8 => [
-              'id'               => '8',
               'itemtype'         => 'SoftwareVersion',
-              'items_id'         => '3',
               'itemtype_link'    => '',
               'linked_action'    => '20',
               'user_name'        => 'Plugin_FusionInventory',
@@ -357,16 +343,22 @@ class ComputerLog extends RestoreDatabase_TestCase {
               ],
       ];
 
-      $this->assertEquals($a_reference, $a_logs, "Log must be 8 ".print_r($a_logs, true));
-      $DB->query('TRUNCATE `glpi_logs`');
+      $this->checkLogs(
+         $a_reference,
+         $a_logs
+      );
 
       // Update a second time and must not have any new lines in glpi_logs
-      $pfiComputerLib->updateComputer($this->a_inventory, 1, false);
+      $pfiComputerLib->updateComputer($this->a_inventory, $cid, false);
 
       $a_logs = getAllDatasFromTable('glpi_logs');
       $a_reference = [];
 
-      $this->assertEquals($a_reference, $a_logs, "Log may be empty at second update ".print_r($a_logs, true));
+      $this->checkLogs(
+         $a_reference,
+         $a_logs,
+         "Log may be empty at second update ".print_r($a_logs, true)
+      );
 
       // * Modify: contact
       // * remove a processor
@@ -375,8 +367,8 @@ class ComputerLog extends RestoreDatabase_TestCase {
       unset($this->a_inventory['processor'][3]);
       unset($this->a_inventory['software']['orbit2$$$$2.14.19$$$$3$$$$0$$$$0']);
 
-      $DB->query('TRUNCATE `glpi_logs`');
-      $pfiComputerLib->updateComputer($this->a_inventory, 1, false);
+      $DB->query('DELETE FROM `glpi_logs`');
+      $pfiComputerLib->updateComputer($this->a_inventory, $cid, false);
 
       $a_logs = getAllDatasFromTable('glpi_logs');
       foreach ($a_logs as $id=>$data) {
@@ -386,9 +378,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
       }
       $a_reference = [
           1 => [
-              'id'               => '1',
               'itemtype'         => 'Computer',
-              'items_id'         => '1',
               'itemtype_link'    => '',
               'linked_action'    => '0',
               'user_name'        => '',
@@ -397,9 +387,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => 'root'
           ],
           2 => [
-              'id'               => '2',
               'itemtype'         => 'Computer',
-              'items_id'         => '1',
               'itemtype_link'    => 'DeviceProcessor',
               'linked_action'    => '3',
               'user_name'        => '',
@@ -408,9 +396,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
           ],
           3 => [
-              'id'               => '3',
               'itemtype'         => 'Computer',
-              'items_id'         => '1',
               'itemtype_link'    => 'SoftwareVersion',
               'linked_action'    => '5',
               'user_name'        => 'Plugin_FusionInventory',
@@ -419,9 +405,7 @@ class ComputerLog extends RestoreDatabase_TestCase {
               'new_value'        => ''
           ],
           4 => [
-              'id'               => '4',
               'itemtype'         => 'SoftwareVersion',
-              'items_id'         => '3',
               'itemtype_link'    => 'Computer',
               'linked_action'    => '5',
               'user_name'        => 'Plugin_FusionInventory',
@@ -431,14 +415,51 @@ class ComputerLog extends RestoreDatabase_TestCase {
           ]
       ];
 
-      $this->assertEquals($a_reference, $a_logs, "May have 5 logs (update contact, remove processor
-         and remove a software)");
-
+      $this->checkLogs(
+         $a_reference,
+         $a_logs,
+         "May have 5 logs (update contact, remove processor and remove a software)"
+      );
    }
 
+   /**
+    * Check logs entries
+    *
+    * @param array  $a_reference Expected entries
+    * @param array  $a_logs      Entries found in DB
+    * àparam string $message     Error message
+    *
+    * @return void
+    */
+   private function checkLogs($a_reference, $a_logs, $message = '') {
+      global $DB;
 
+      if ($message === '') {
+         $message = "Log must be ".count($a_reference)." ".print_r($a_logs, true);
+      }
+      $this->assertEquals(count($a_reference), count($a_logs), $message);
+      $a_logs = array_values($a_logs);
+      foreach (array_values($a_reference) as $key => $reference) {
+         $log = $a_logs[$key];
+         $this->assertGreaterThan(0, $log['items_id']);
+         unset($log['id']); //ids are not predictable...
+         unset($log['items_id']); //ids are not predictable...
+         if (preg_match('/.*(\(\d+\))$/', $reference['old_value'], $match)) {
+            $log['old_value'] = preg_replace(
+               '/\(\d+\)$/',
+               $match[1],
+               $log['old_value']
+            );
+         }
+         if (preg_match('/.*(\(\d+\))$/', $reference['new_value'], $match)) {
+            $log['new_value'] = preg_replace(
+               '/\(\d+\)$/',
+               $match[1],
+               $log['new_value']
+            );
+         }
+         $this->assertEquals($reference, $log, "Logs must be identical!");
+      }
+      $DB->query('DELETE FROM `glpi_logs`');
+   }
 }
-
-
-
-
