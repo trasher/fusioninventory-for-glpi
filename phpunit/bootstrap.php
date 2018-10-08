@@ -34,4 +34,4 @@ if (!isset($_SESSION['glpilanguage'])) {
 include_once("Common_TestCase.php");
 include_once("RestoreDatabase_TestCase.php");
 include_once("LogTest.php");
-//include_once("commonfunction.php");
+include_once("commonfunction.php");
