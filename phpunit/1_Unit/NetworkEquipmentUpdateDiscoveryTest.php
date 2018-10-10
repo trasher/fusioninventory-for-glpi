@@ -42,7 +42,6 @@
 
 class NetworkEquipmentUpdateDiscovery extends RestoreDatabase_TestCase {
 
-   public $item_id = 0;
    public $datelatupdate = '';
 
 
@@ -92,11 +91,30 @@ class NetworkEquipmentUpdateDiscovery extends RestoreDatabase_TestCase {
       'MANUFACTURER' => 'H3C'
    ];
 
+   /**
+    * Adds a new NetworkEquipment in database
+    *
+    * @retrun NetworkEquipment
+    */
+   private function addNetworkEquipment() {
+      $networkEquipment = new NetworkEquipment();
+
+      $input = [
+          'name'        => 'switch H3C',
+          'entities_id' => '0'
+      ];
+      $item_id = (int)$networkEquipment->add($input);
+      $this->assertGreaterThan(0, $item_id);
+      $this->assertTrue(
+         $networkEquipment->getFromDB($item_id)
+      );
+      return $networkEquipment;
+   }
 
    /**
     * @test
     */
-   public function AddNetworkEquipment() {
+   public function testAddNetworkEquipment() {
       global $DB;
 
       // Load session rights
@@ -105,14 +123,7 @@ class NetworkEquipmentUpdateDiscovery extends RestoreDatabase_TestCase {
       Session::changeProfile(4);
 
       $pfCND = new PluginFusioninventoryCommunicationNetworkDiscovery();
-      $networkEquipment = new NetworkEquipment();
-
-      $input = [
-          'name'        => 'switch H3C',
-          'entities_id' => '0'
-      ];
-      $this->item_id = $networkEquipment->add($input);
-      $networkEquipment->getFromDB($this->item_id);
+      $networkEquipment = $this->addNetworkEquipment();
 
       $_SESSION['SOURCE_XMLDEVICE'] = $this->source_xmldevice;
       $pfCND->importDevice($networkEquipment);
@@ -153,6 +164,7 @@ class NetworkEquipmentUpdateDiscovery extends RestoreDatabase_TestCase {
 
    /**
     * @test
+    * @depends testAddNetworkEquipment
     */
    public function UpdateNetworkEquipment() {
 
@@ -161,13 +173,14 @@ class NetworkEquipmentUpdateDiscovery extends RestoreDatabase_TestCase {
       Session::initEntityProfiles(2);
       Session::changeProfile(4);
 
-      // Update 2nd time
       $pfCND = new PluginFusioninventoryCommunicationNetworkDiscovery();
-      $networkEquipment = new NetworkEquipment();
 
-      $networkEquipment->getFromDB(1);
+      $networkEquipment = $this->addNetworkEquipment();
 
       $_SESSION['SOURCE_XMLDEVICE'] = $this->source_xmldevice;
+      $pfCND->importDevice($networkEquipment);
+
+      // Update 2nd time
       $pfCND->importDevice($networkEquipment);
    }
 

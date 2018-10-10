@@ -208,7 +208,7 @@ class VirtualmachineTest extends RestoreDatabase_TestCase {
    public function ComputerVirtualmachineUpdateMemory() {
       global $DB;
 
-      $DB->connect();
+      $this->AddComputer();
 
       $a_inventory = $this->computer_inventory;
 
@@ -217,13 +217,13 @@ class VirtualmachineTest extends RestoreDatabase_TestCase {
       $pfiComputerLib   = new PluginFusioninventoryInventoryComputerLib();
       $pfFormatconvert  = new PluginFusioninventoryFormatconvert();
 
-      $a_inventory = $pfFormatconvert->replaceids($a_inventory, 'Computer', 1);
+      $a_inventory = $pfFormatconvert->replaceids($a_inventory, 'Computer', $this->items_id);
 
       $serialized = gzcompress(serialize($a_inventory));
       $a_inventory['fusioninventorycomputer']['serialized_inventory'] =
                Toolbox::addslashes_deep($serialized);
 
-      $pfiComputerLib->updateComputer($a_inventory, 1, false);
+      $pfiComputerLib->updateComputer($a_inventory, $this->items_id, false);
 
       $nbvm = countElementsInTable("glpi_computervirtualmachines");
 
