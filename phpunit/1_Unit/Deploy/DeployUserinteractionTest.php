@@ -157,6 +157,34 @@ class DeployUserinteractionTest extends RestoreDatabase_TestCase {
 
    }
 
+   /**
+    * Adds an item, return packages_id
+    *
+    * @return int
+    */
+   private function addItem() {
+      $interaction     = new PluginFusioninventoryDeployUserinteraction();
+      $pfDeployPackage = new PluginFusioninventoryDeployPackage();
+
+      $input = [
+         'name'        => 'test1',
+         'entities_id' => 0
+      ];
+      $packages_id = $pfDeployPackage->add($input);
+
+      $params = [
+         'id'                   => $packages_id,
+         'userinteractionstype' => 'before',
+         'name'                 => 'My interaction',
+         'name'                 => 'interaction 1',
+         'title'                => 'My title',
+         'text'                 => 'my text',
+         'template'             => 0,
+      ];
+      $interaction->add_item($params);
+
+      return $packages_id;
+   }
 
    /**
     * @test
@@ -164,21 +192,8 @@ class DeployUserinteractionTest extends RestoreDatabase_TestCase {
    public function testAdd_item() {
       $_SESSION['glpiactiveentities_string'] = 0;
 
-      $pfDeployPackage = new PluginFusioninventoryDeployPackage();
-      $input = ['name'        => 'test1',
-                'entities_id' => 0];
-      $packages_id = $pfDeployPackage->add($input);
-
       $interaction     = new PluginFusioninventoryDeployUserinteraction();
-      $params = ['id'                   => $packages_id,
-                 'userinteractionstype' => 'before',
-                 'name'                 => 'My interaction',
-                 'name'                 => 'interaction 1',
-                 'title'                => 'My title',
-                 'text'                 => 'my text',
-                 'template'             => 0,
-                ];
-      $interaction->add_item($params);
+      $packages_id = $this->addItem();
       $expected = '{"jobs":{"checks":[],"associatedFiles":[],"actions":[],"userinteractions":[{"name":"interaction 1","title":"My title","text":"my text","type":"before","template":0}]},"associatedFiles":[]}';
       $json     = Toolbox::stripslashes_deep($interaction->getJson($packages_id));
       $this->assertEquals($expected, $json);
@@ -198,16 +213,16 @@ class DeployUserinteractionTest extends RestoreDatabase_TestCase {
 
    }
 
-
    /**
     * @test
     * @depends testAdd_item
     */
    public function testSave_item() {
       $_SESSION['glpiactiveentities_string'] = 0;
-
       $interaction     = new PluginFusioninventoryDeployUserinteraction();
-      $params = ['id'                   => 1,
+      $packages_id = $this->addItem();
+
+      $params = ['id'                   => $packages_id,
                  'index'                => 0,
                  'userinteractionstype' => 'after',
                  'name'                 => 'My interaction',
@@ -220,7 +235,6 @@ class DeployUserinteractionTest extends RestoreDatabase_TestCase {
       $expected = '{"jobs":{"checks":[],"associatedFiles":[],"actions":[],"userinteractions":[{"name":"interaction 1","title":"My title","text":"my text","type":"after","template":1},{"name":"interaction 2","title":"My title","text":"my text","type":"after","template":0}]},"associatedFiles":[]}';
       $json     = Toolbox::stripslashes_deep($interaction->getJson(1));
       $this->assertEquals($expected, $json);
-
    }
 
 
@@ -232,7 +246,8 @@ class DeployUserinteractionTest extends RestoreDatabase_TestCase {
       $_SESSION['glpiactiveentities_string'] = 0;
 
       $interaction     = new PluginFusioninventoryDeployUserinteraction();
-      $interaction->move_item(['id'        => 1,
+      $packages_id = $this->addItem();
+      $interaction->move_item(['id'        => $packages_id,
                                'old_index' => 0,
                                'new_index' => 1]);
       $expected = '{"jobs":{"checks":[],"associatedFiles":[],"actions":[],"userinteractions":[{"name":"interaction 2","title":"My title","text":"my text","type":"after","template":0},{"name":"interaction 1","title":"My title","text":"my text","type":"after","template":1}]},"associatedFiles":[]}';
@@ -250,7 +265,8 @@ class DeployUserinteractionTest extends RestoreDatabase_TestCase {
       $_SESSION['glpiactiveentities_string'] = 0;
 
       $interaction     = new PluginFusioninventoryDeployUserinteraction();
-      $interaction->remove_item(['packages_id'    => 1,
+      $packages_id = $this->addItem();
+      $interaction->remove_item(['packages_id'    => $packages_id,
                                  'userinteractions_entries' => [0 => 'on']]);
       $expected = '{"jobs":{"checks":[],"associatedFiles":[],"actions":[],"userinteractions":[{"name":"interaction 1","title":"My title","text":"my text","type":"after","template":1}]},"associatedFiles":[]}';
       $json     = $interaction->getJson(1);
