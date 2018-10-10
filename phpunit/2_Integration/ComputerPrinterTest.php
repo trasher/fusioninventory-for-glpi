@@ -326,7 +326,7 @@ class ComputerPrinter extends Common_TestCase {
 
       $printer = new Printer();
       $printer->delete(['id' => 1], 1);
-      $DB->query("TRUNCATE TABLE `glpi_printers`");
+      $DB->query("DELETE FROM `glpi_printers`");
 
    }
 
@@ -344,7 +344,7 @@ class ComputerPrinter extends Common_TestCase {
       $pfConfig         = new PluginFusioninventoryConfig();
       $computer         = new Computer();
 
-      $DB->query("TRUNCATE TABLE `glpi_printers`");
+      $DB->query("DELETE FROM `glpi_printers`");
 
       $pfici = new PluginFusioninventoryInventoryComputerInventory();
 

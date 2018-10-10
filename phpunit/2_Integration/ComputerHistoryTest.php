@@ -258,7 +258,7 @@ class ComputerHistory extends RestoreDatabase_TestCase {
 
       // add computer
       $pfCommunication->handleOCSCommunication('', $xml, 'glpi');
-      $DB->query("TRUNCATE TABLE `glpi_logs`");
+      $DB->query("DELETE FROM `glpi_logs`");
 
       // find number of computers
       $found = $computer->find();

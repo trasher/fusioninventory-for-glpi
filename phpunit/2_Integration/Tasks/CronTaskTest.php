@@ -407,8 +407,8 @@ class CronTaskTest extends RestoreDatabase_TestCase {
       $pfTask       = new PluginFusioninventoryTask();
       $deploycommon = new PluginFusioninventoryDeployCommon();
 
-      $DB->query("TRUNCATE TABLE `glpi_plugin_fusioninventory_taskjoblogs`");
-      $DB->query("TRUNCATE TABLE `glpi_plugin_fusioninventory_taskjobstates`");
+      $DB->query("DELETE FROM `glpi_plugin_fusioninventory_taskjoblogs`");
+      $DB->query("DELETE FROM `glpi_plugin_fusioninventory_taskjobstates`");
 
       $input = [
           'id'                      => 1,
@@ -552,8 +552,8 @@ class CronTaskTest extends RestoreDatabase_TestCase {
       $pfTask->delete(['id' => 1], true);
 
       //Clean all taskjoblogs & states
-      $DB->query("TRUNCATE TABLE `glpi_plugin_fusioninventory_taskjoblogs`");
-      $DB->query("TRUNCATE TABLE `glpi_plugin_fusioninventory_taskjobstates`");
+      $DB->query("DELETE FROM `glpi_plugin_fusioninventory_taskjoblogs`");
+      $DB->query("DELETE FROM `glpi_plugin_fusioninventory_taskjobstates`");
 
       //Find the on demand task
       $tasks = $pfTask->find("`name`='ondemand'");
