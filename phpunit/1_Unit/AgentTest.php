@@ -156,8 +156,6 @@ class AgentTest extends RestoreDatabase_TestCase {
       global $DB;
       // test update last_contact field but not have logs/ history
 
-      $DB->connect();
-
       $pfAgent = new PluginFusioninventoryAgent();
       $query = "UPDATE glpi_plugin_fusioninventory_agents SET `last_contact`='2015-01-01 00:00:01'";
       $DB->query($query);

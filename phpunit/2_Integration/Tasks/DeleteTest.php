@@ -54,8 +54,6 @@ class DeleteTest extends RestoreDatabase_TestCase {
    public function prepareDB() {
       global $DB;
 
-      $DB->connect();
-
       $pfDeployPackage = new PluginFusioninventoryDeployPackage();
       $pfDeployGroup   = new PluginFusioninventoryDeployGroup();
       $pfTask          = new PluginFusioninventoryTask();

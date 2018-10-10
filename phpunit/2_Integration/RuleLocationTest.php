@@ -49,8 +49,6 @@ class RuleLocationTest extends Common_TestCase {
    public function RegexpRuleResultAssignTest() {
       global $DB, $PF_CONFIG;
 
-      $DB->connect();
-
       $rule     = new Rule();
       $location = new Location();
 
@@ -143,8 +141,6 @@ class RuleLocationTest extends Common_TestCase {
    public function RegexpRuleResultRegexpTest() {
       global $DB, $PF_CONFIG;
 
-      $DB->connect();
-
       $rule = new Rule();
       $rule->deleteByCriteria(['sub_type' => 'PluginFusioninventoryInventoryRuleLocation'], true);
       $location = new Location;
@@ -230,8 +226,6 @@ class RuleLocationTest extends Common_TestCase {
     */
    public function RegexpRuleByIPTest() {
       global $DB, $PF_CONFIG;
-
-      $DB->connect();
 
       $rule = new Rule();
       $rule->deleteByCriteria(['sub_type' => 'PluginFusioninventoryInventoryRuleLocation'], true);

@@ -48,7 +48,6 @@ class FusinvInstallTest extends Common_TestCase {
    public function testInstall() {
 
       global $DB;
-      $DB->connect();
       $this->assertTrue($DB->connected, "Problem connecting to the Database");
 
       // Delete if Table of FusionInventory or Tracker yet in DB
@@ -73,7 +72,6 @@ class FusinvInstallTest extends Common_TestCase {
 
    public function testForceInstall() {
       global $DB;
-      $DB->connect();
       $this->assertTrue($DB->connected, "Problem connecting to the Database");
 
       $pfComputerComputer = new PluginFusioninventoryInventoryComputerComputer();

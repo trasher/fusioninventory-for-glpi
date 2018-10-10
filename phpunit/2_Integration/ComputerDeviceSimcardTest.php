@@ -332,8 +332,6 @@ class ComputerDeviceSimcardTest extends RestoreDatabase_TestCase {
    private function updateComputer($computer_fields) {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';

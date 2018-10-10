@@ -49,8 +49,6 @@ class CollectsTest extends RestoreDatabase_TestCase {
    public function prepareDB() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION['glpiactiveentities_string'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
@@ -188,8 +186,6 @@ class CollectsTest extends RestoreDatabase_TestCase {
     */
    public function registryProcessWithAgent() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 
@@ -359,8 +355,6 @@ class CollectsTest extends RestoreDatabase_TestCase {
     */
    public function wmiProcessWithAgent() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 
@@ -533,8 +527,6 @@ class CollectsTest extends RestoreDatabase_TestCase {
     */
    public function filesProcessWithAgent() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 
@@ -764,8 +756,6 @@ class CollectsTest extends RestoreDatabase_TestCase {
    public function testFilesCleanComputer() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $_SESSION['glpiactive_entity'] = 0;
@@ -823,8 +813,6 @@ class CollectsTest extends RestoreDatabase_TestCase {
    public function testRegistryCleanComputer() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $_SESSION['glpiactive_entity'] = 0;
@@ -880,8 +868,6 @@ class CollectsTest extends RestoreDatabase_TestCase {
    public function testWmiCleanComputer() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $_SESSION['glpiactive_entity'] = 0;
@@ -934,8 +920,6 @@ class CollectsTest extends RestoreDatabase_TestCase {
     */
    public function testDeleteComputer() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 

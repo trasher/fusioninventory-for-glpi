@@ -72,8 +72,6 @@ class SoftwareEntityCreationTest extends Common_TestCase {
       return;
       // TODO: recode this test
 
-      $DB->connect();
-
       self::restore_database();
 
       $DB->query("INSERT INTO `glpi_entities`
@@ -151,8 +149,6 @@ class SoftwareEntityCreationTest extends Common_TestCase {
       $this->mark_incomplete();
       return;
       // TODO: recode this test
-
-      $DB->connect();
 
       self::restore_database();
 
@@ -238,8 +234,6 @@ class SoftwareEntityCreationTest extends Common_TestCase {
       $this->mark_incomplete();
       return;
       // TODO: recode this test
-
-      $DB->connect();
 
       $DB->query("UPDATE `glpi_entities`
          SET `entities_id_software` = '-2'

@@ -116,8 +116,6 @@ class ComputerLicenseTest extends RestoreDatabase_TestCase {
    public function testAddLicensesWhenInventory() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -169,8 +167,6 @@ class ComputerLicenseTest extends RestoreDatabase_TestCase {
    public function testCleanComputer() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -210,8 +206,6 @@ class ComputerLicenseTest extends RestoreDatabase_TestCase {
     */
    public function testDeleteComputer() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 

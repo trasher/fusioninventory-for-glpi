@@ -49,8 +49,6 @@ class SoftwareUpdateTest extends RestoreDatabase_TestCase {
    public function AddAllRules() {
       global $DB;
 
-      $DB->connect();
-
       $rule         = new Rule();
       $ruleCriteria = new RuleCriteria();
       $ruleAction   = new RuleAction();
@@ -152,8 +150,6 @@ class SoftwareUpdateTest extends RestoreDatabase_TestCase {
    public function AddSoftwareNormal() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"]                      = 'Plugin_FusionInventory';
 
@@ -201,8 +197,6 @@ class SoftwareUpdateTest extends RestoreDatabase_TestCase {
    public function AddSoftwareIgnore() {
       global $DB;
 
-      $DB->connect();
-
       $a_software  = [];
       $a_reference = [];
 
@@ -230,8 +224,6 @@ class SoftwareUpdateTest extends RestoreDatabase_TestCase {
     */
    public function AddSoftwareRename() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -277,8 +269,6 @@ class SoftwareUpdateTest extends RestoreDatabase_TestCase {
    public function AddSoftwareRenameManufacturer() {
       global $DB;
 
-      $DB->connect();
-
       $this->mark_incomplete();
       return;
       // TODO: recode this test (and verify all the tests in this file)
@@ -323,8 +313,6 @@ class SoftwareUpdateTest extends RestoreDatabase_TestCase {
    public function AddSoftwareVersion() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
 
@@ -367,8 +355,6 @@ class SoftwareUpdateTest extends RestoreDatabase_TestCase {
     */
    public function ProcessInstalldate() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';

@@ -52,8 +52,6 @@ class NetworkEquipmentUpdate extends RestoreDatabase_TestCase {
    public function AddNetworkEquipment() {
       global $DB;
 
-      $DB->connect();
-
       $DB->query("UPDATE `glpi_plugin_fusioninventory_networkporttypes`"
               ." SET `import`='1'"
               ." WHERE `number`='54'");
@@ -226,8 +224,6 @@ class NetworkEquipmentUpdate extends RestoreDatabase_TestCase {
    public function NetworkEquipmentGeneral() {
       global $DB;
 
-      $DB->connect();
-
       $networkEquipment = new NetworkEquipment();
 
       $networkEquipment->getFromDB(1);
@@ -272,8 +268,6 @@ class NetworkEquipmentUpdate extends RestoreDatabase_TestCase {
    public function NetworkEquipmentSnmpExtension() {
       global $DB;
 
-      $DB->connect();
-
       $pfNetworkEquipment = new PluginFusioninventoryNetworkEquipment();
       $a_networkequipment = current($pfNetworkEquipment->find("`networkequipments_id`='1'", "", 1));
       unset($a_networkequipment['last_fusioninventory_update']);
@@ -302,8 +296,6 @@ Compiled Fri 26-Mar-10 09:14 by prod_rel_team',
     */
    public function NetworkEquipmentInternalPorts() {
       global $DB;
-
-      $DB->connect();
 
       $networkPort = new NetworkPort();
       $networkName = new NetworkName();
@@ -339,8 +331,6 @@ Compiled Fri 26-Mar-10 09:14 by prod_rel_team',
    public function UnmanagedNetworkPort() {
       global $DB;
 
-      $DB->connect();
-
       $networkPort = new NetworkPort();
 
       $a_networkports = $networkPort->find("`mac`='cc:f9:54:a1:03:35'
@@ -360,8 +350,6 @@ Compiled Fri 26-Mar-10 09:14 by prod_rel_team',
     */
    public function NetworkPortConnection() {
       global $DB;
-
-      $DB->connect();
 
       $networkPort = new NetworkPort();
       $networkPort_NetworkPort = new NetworkPort_NetworkPort();
@@ -392,8 +380,6 @@ Compiled Fri 26-Mar-10 09:14 by prod_rel_team',
    public function NetworkPortAggregation() {
       global $DB;
 
-      $DB->connect();
-
       $networkPort = new NetworkPort();
       $networkPortAggregate = new NetworkPortAggregate();
 
@@ -416,8 +402,6 @@ Compiled Fri 26-Mar-10 09:14 by prod_rel_team',
     */
    public function VlansPort10002() {
       global $DB;
-
-      $DB->connect();
 
       $networkPort = new NetworkPort();
 
@@ -442,8 +426,6 @@ Compiled Fri 26-Mar-10 09:14 by prod_rel_team',
     */
    public function NetworkPortCreated() {
       global $DB;
-
-      $DB->connect();
 
       $networkPort = new NetworkPort();
       $a_networkports = $networkPort->find("`itemtype`='NetworkEquipment'");

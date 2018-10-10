@@ -112,8 +112,6 @@ class ComputerDeviceBatteryTest extends RestoreDatabase_TestCase {
    public function BatteryWithFullInfos() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -210,8 +208,6 @@ class ComputerDeviceBatteryTest extends RestoreDatabase_TestCase {
     */
    public function BatteryWithoutFullInfos() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;

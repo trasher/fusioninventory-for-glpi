@@ -51,8 +51,6 @@ class ComputerEntity extends RestoreDatabase_TestCase {
    public function AddComputer() {
       global $DB;
 
-      $DB->connect();
-
       plugin_init_fusioninventory();
 
       $DB->query("INSERT INTO `glpi_entities`
@@ -142,8 +140,6 @@ class ComputerEntity extends RestoreDatabase_TestCase {
    public function updateComputerTranfer() {
       global $DB;
 
-      $DB->connect();
-
       $transfer       = new Transfer();
       $computer       = new Computer();
       $pfiComputerInv = new PluginFusioninventoryInventoryComputerInventory();
@@ -186,8 +182,6 @@ class ComputerEntity extends RestoreDatabase_TestCase {
     */
    public function updateComputerNoTranfer() {
       global $DB;
-
-      $DB->connect();
 
       $transfer       = new Transfer();
       $computer       = new Computer();
@@ -241,8 +235,6 @@ class ComputerEntity extends RestoreDatabase_TestCase {
     */
    public function updateaddComputerRestrictEntity() {
       global $DB;
-
-      $DB->connect();
 
       $computer = new Computer();
       $pfiComputerInv = new PluginFusioninventoryInventoryComputerInventory();
@@ -322,8 +314,6 @@ class ComputerEntity extends RestoreDatabase_TestCase {
 
    public function AgentEntity($computers_id = 0, $entities_id = 0, $text = '') {
       global $DB;
-
-      $DB->connect();
 
       if ($computers_id == 0) {
          return;

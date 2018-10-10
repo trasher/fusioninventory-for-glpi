@@ -252,8 +252,6 @@ class ComputerHistory extends RestoreDatabase_TestCase {
    public function checkComputerLogs($xml = "") {
       global $DB;
 
-      $DB->connect();
-
       $pfCommunication = new PluginFusioninventoryCommunication();
       $log             = new Log();
       $computer        = new Computer();

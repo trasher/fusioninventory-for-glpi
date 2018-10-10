@@ -49,8 +49,6 @@ class RuleEntityTest extends Common_TestCase {
    public function TwoRegexpEntitiesTest() {
       global $DB;
 
-      $DB->connect();
-
       $DB->query('DELETE FROM glpi_entities where id>0');
 
       $DB->query("INSERT INTO `glpi_entities`

@@ -48,8 +48,6 @@ class RuleImportTest extends Common_TestCase {
 
       parent::setUp();
 
-      $DB->connect();
-
       self::restore_database();
 
       $DB->query("UPDATE `glpi_rules`
@@ -167,8 +165,6 @@ class RuleImportTest extends Common_TestCase {
    public function PrinterDiscoveryImport() {
       global $DB, $PF_CONFIG;
 
-      $DB->connect();
-
       $a_inventory = [
           'AUTHSNMP'     => '1',
           'DESCRIPTION'  => 'Brother NC-6400h, Firmware Ver.1.11  (06.12.20),MID 84UZ92',
@@ -215,8 +211,6 @@ class RuleImportTest extends Common_TestCase {
     */
    public function PrinterDiscoveryImportDenied() {
       global $DB;
-
-      $DB->connect();
 
       $a_inventory = [
           'AUTHSNMP'     => '1',

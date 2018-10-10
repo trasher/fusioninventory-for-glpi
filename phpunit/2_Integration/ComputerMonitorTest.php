@@ -158,8 +158,6 @@ class ComputerMonitor extends Common_TestCase {
    public function MonitorUniqueSerialimport() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $_SESSION['glpiactive_entity'] = 0;

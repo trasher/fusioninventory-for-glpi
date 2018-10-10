@@ -49,8 +49,6 @@ class NetworkInventoryTest extends RestoreDatabase_TestCase {
    public function prepareDB() {
       global $DB;
 
-      $DB->connect();
-
       $entity          = new Entity();
       $computer        = new Computer();
       $pfAgent         = new PluginFusioninventoryAgent();
@@ -226,8 +224,6 @@ class NetworkInventoryTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify preparation of a network discovery task
-      $DB->connect();
-
       PluginFusioninventoryTask::cronTaskscheduler();
 
       $pfTask = new PluginFusioninventoryTask();
@@ -255,8 +251,6 @@ class NetworkInventoryTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify prepare a network discovery task
-      $DB->connect();
-
       $pfNetworkinventory = new PluginFusioninventoryNetworkinventory();
       $jobstate           = new PluginFusioninventoryTaskjobstate();
 

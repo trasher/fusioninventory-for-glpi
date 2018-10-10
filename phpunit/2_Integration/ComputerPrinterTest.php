@@ -221,8 +221,6 @@ class ComputerPrinter extends Common_TestCase {
    public function testPrinterDicoIgnoreImport() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $_SESSION['glpiactive_entity'] = 0;
@@ -339,8 +337,6 @@ class ComputerPrinter extends Common_TestCase {
    public function PrinterDicoRename() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -383,8 +379,6 @@ class ComputerPrinter extends Common_TestCase {
    public function PrinterDicoManufacturer() {
       global $DB;
 
-      $DB->connect();
-
       $printer = new Printer();
       $printer->getFromDB(1);
       $this->assertEquals('1',
@@ -402,8 +396,6 @@ class ComputerPrinter extends Common_TestCase {
 
       global $DB;
 
-      $DB->connect();
-
       $printer = new Printer();
       $printer->getFromDB(2);
       $this->assertEquals('0', $printer->fields['is_global'], 'Printer p3 may be managed unit');
@@ -418,8 +410,6 @@ class ComputerPrinter extends Common_TestCase {
       $this->mark_incomplete();
 
       global $DB;
-
-      $DB->connect();
 
       $printer = new Printer();
       $printer->getFromDB(1);

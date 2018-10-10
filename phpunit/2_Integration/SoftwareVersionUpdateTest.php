@@ -49,8 +49,6 @@ class SoftwareVersionUpdateTest extends RestoreDatabase_TestCase {
    public function updateVersionWithOS() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity']             = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"]                      = 'Plugin_FusionInventory';

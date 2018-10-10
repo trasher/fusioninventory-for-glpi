@@ -50,8 +50,6 @@ class GetTaskByFiltersTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify prepare a deploy task
-      $DB->connect();
-
       $pfTask = new PluginFusioninventoryTask();
 
       // create task

@@ -10,7 +10,6 @@ class Bootstrap extends BaseTestCase {
 
    public function testInitDatabase() {
       global $DB;
-      $DB->connect();
       $this->assertTrue($DB->connected, "Problem connecting to database");
    }
 

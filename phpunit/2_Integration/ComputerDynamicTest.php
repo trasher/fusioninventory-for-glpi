@@ -49,8 +49,6 @@ class ComputerDynamic extends RestoreDatabase_TestCase {
    public function UpdateComputerManuallyAdded() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -134,8 +132,6 @@ class ComputerDynamic extends RestoreDatabase_TestCase {
     */
    public function UpdateComputerFusioninventoryAdded() {
       global $DB;
-
-      $DB->connect();
 
       // Add manually a computerdisk
 
@@ -240,8 +236,6 @@ class ComputerDynamic extends RestoreDatabase_TestCase {
     */
    public function UpdateComputerRemoveProcessor() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';

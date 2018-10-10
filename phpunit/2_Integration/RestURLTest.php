@@ -49,8 +49,6 @@ class RestURLTest extends RestoreDatabase_TestCase {
    public function prepareDB() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -97,8 +95,6 @@ class RestURLTest extends RestoreDatabase_TestCase {
    public function getCollectURLEnt1Entity() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -133,8 +129,6 @@ class RestURLTest extends RestoreDatabase_TestCase {
     */
    public function getDeployURLRootEntity() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
@@ -171,8 +165,6 @@ class RestURLTest extends RestoreDatabase_TestCase {
    public function getESXURLRootEntity() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -207,8 +199,6 @@ class RestURLTest extends RestoreDatabase_TestCase {
     */
    public function getCollectURLRootEntity() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;

@@ -124,8 +124,6 @@ class VirtualmachineTest extends RestoreDatabase_TestCase {
    public function AddComputer() {
       global $DB;
 
-      $DB->connect();
-
       $date = date('Y-m-d H:i:s');
 
       $_SESSION["plugin_fusioninventory_entity"] = 0;
@@ -168,8 +166,6 @@ class VirtualmachineTest extends RestoreDatabase_TestCase {
     */
    public function ComputerVirtualmachineCreate() {
       global $DB;
-
-      $DB->connect();
 
       $a_data = getAllDatasFromTable("glpi_computervirtualmachines");
 

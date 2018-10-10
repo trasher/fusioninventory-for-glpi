@@ -52,8 +52,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
    public function prepareDB() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -253,8 +251,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
    public function getComputerCommentAssign() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -276,8 +272,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
     */
    public function getComputerModelAssign() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
@@ -303,8 +297,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
    public function getComputerModelRegexCreate() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -328,8 +320,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
     */
    public function getComputerModelRegex() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
@@ -355,8 +345,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
    public function getUserRegex() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -380,8 +368,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
     */
    public function getSoftwareVersionRegex() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
@@ -407,8 +393,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
    public function getOtherserialRegex() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -432,8 +416,6 @@ class CollectRuleTest extends RestoreDatabase_TestCase {
     */
    public function getOtherserialAssign() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;

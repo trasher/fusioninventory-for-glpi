@@ -49,8 +49,6 @@ class PrinterTransformation extends RestoreDatabase_TestCase {
    public function PrinterGeneral() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
 
@@ -106,8 +104,6 @@ class PrinterTransformation extends RestoreDatabase_TestCase {
     */
    public function PrinterPageCounter() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -178,8 +174,6 @@ class PrinterTransformation extends RestoreDatabase_TestCase {
     */
    public function PrinterCartridge() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';

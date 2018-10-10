@@ -49,8 +49,6 @@ class FormatConvertDataTest extends RestoreDatabase_TestCase {
    public function JsontoArray() {
       global $DB;
 
-      $DB->connect();
-
       $a_inventory['hardware'] = [
           "dns"                  => "10.0.5.105",
           "userid"               => "root/goneri",
@@ -121,8 +119,6 @@ class FormatConvertDataTest extends RestoreDatabase_TestCase {
    public function Replaceids() {
       global $DB;
 
-      $DB->connect();
-
       $a_inventory['software'] = [];
       $a_inventory['Computer'] = [
           'name'                             => 'pc',
@@ -156,8 +152,6 @@ class FormatConvertDataTest extends RestoreDatabase_TestCase {
     */
    function DiscoveryDeviceConvert() {
       global $DB;
-
-      $DB->connect();
 
       $sxml = '<?xml version="1.0" encoding="UTF-8" ?>
 <REQUEST>
@@ -193,8 +187,6 @@ class FormatConvertDataTest extends RestoreDatabase_TestCase {
     */
    function SwitchConvert() {
       global $DB;
-
-      $DB->connect();
 
       $sxml = '<?xml version="1.0" encoding="UTF-8" ?>
 <REQUEST>
@@ -289,8 +281,6 @@ Compiled Wed 11-Feb-15 11:46 by prod_rel_team</COMMENTS>
     */
    function testComputerConvert() {
       global $DB;
-
-      $DB->connect();
 
       $sxml = '<?xml version="1.0" encoding="UTF-8" ?>
 <REQUEST>

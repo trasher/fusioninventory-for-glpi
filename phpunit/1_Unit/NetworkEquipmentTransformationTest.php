@@ -49,8 +49,6 @@ class NetworkEquipmentTransformationTest extends RestoreDatabase_TestCase {
    public function ConvertXMLtoArray1() {
       global $DB;
 
-      $DB->connect();
-
       $xml_source = '<?xml version="1.0"?>
 <REQUEST>
 <CONTENT>
@@ -161,8 +159,6 @@ class NetworkEquipmentTransformationTest extends RestoreDatabase_TestCase {
    public function ConvertXMLtoArrayAggregatePort() {
       global $DB;
 
-      $DB->connect();
-
       $xml_source = '<?xml version="1.0"?>
 <REQUEST>
 <CONTENT>
@@ -271,8 +267,6 @@ class NetworkEquipmentTransformationTest extends RestoreDatabase_TestCase {
    public function ConvertXMLtoArrayMultiVlan() {
       global $DB;
 
-      $DB->connect();
-
       $xml_source = '<?xml version="1.0"?>
 <REQUEST>
 <CONTENT>
@@ -360,8 +354,6 @@ class NetworkEquipmentTransformationTest extends RestoreDatabase_TestCase {
     */
    public function NetworkEquipmentGeneral() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -523,8 +515,6 @@ Compiled Sat 07-Aug-10 22:45 by prod_rel_team',
     */
    public function NetworkEquipmentConnectionMac() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';

@@ -48,8 +48,6 @@ class RuleIgnoredImport extends Common_TestCase {
 
       parent::setUp();
 
-      $DB->connect();
-
       self::restore_database();
 
       $DB->query("UPDATE `glpi_rules`
@@ -94,8 +92,6 @@ class RuleIgnoredImport extends Common_TestCase {
     */
    public function IgnoreComputerImport() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity']         = 0;
       $_SESSION['glpiactiveentities_string'] = 0;
@@ -161,8 +157,6 @@ class RuleIgnoredImport extends Common_TestCase {
     */
    public function IgnoreNetworkDiscoveryImport() {
       global $DB;
-
-      $DB->connect();
 
       $a_inventory = [
           'DNSHOSTNAME' => 'pctest',

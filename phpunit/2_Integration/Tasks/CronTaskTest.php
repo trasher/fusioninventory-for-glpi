@@ -49,8 +49,6 @@ class CronTaskTest extends RestoreDatabase_TestCase {
    public function prepareDB() {
       global $DB;
 
-      $DB->connect();
-
       $computer        = new Computer();
       $pfAgent         = new PluginFusioninventoryAgent();
       $pfDeployPackage = new PluginFusioninventoryDeployPackage();
@@ -195,8 +193,6 @@ class CronTaskTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify prepare a deploy task
-      $DB->connect();
-
       PluginFusioninventoryTask::cronTaskscheduler();
 
       $pfTask = new PluginFusioninventoryTask();
@@ -261,8 +257,6 @@ class CronTaskTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify add new agent when have new computer (dynamic group) in deploy task
-      $DB->connect();
-
       $computer = new Computer();
       $pfAgent  = new PluginFusioninventoryAgent();
 
@@ -307,8 +301,6 @@ class CronTaskTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify cancel agent prepared when one computer not verify dynamic group in deploy task
-      $DB->connect();
-
       $computer = new Computer();
 
       $computer->update([
@@ -347,8 +339,6 @@ class CronTaskTest extends RestoreDatabase_TestCase {
    public function prepareTaskDisabled() {
       global $DB;
 
-      $DB->connect();
-
       $pfTask = new PluginFusioninventoryTask();
 
       $pfTask->update([
@@ -374,8 +364,6 @@ class CronTaskTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify prepare a deploy task
-      $DB->connect();
-
       PluginFusioninventoryTask::cronTaskscheduler();
 
       $pfTask = new PluginFusioninventoryTask();
@@ -415,8 +403,6 @@ class CronTaskTest extends RestoreDatabase_TestCase {
       $_SESSION['glpi_plugin_fusioninventory']['includeoldjobs'] = 2;
 
       // Verify prepare a deploy task
-      $DB->connect();
-
       $pfAgent      = new PluginFusioninventoryAgent();
       $pfTask       = new PluginFusioninventoryTask();
       $deploycommon = new PluginFusioninventoryDeployCommon();
@@ -561,8 +547,6 @@ class CronTaskTest extends RestoreDatabase_TestCase {
       $pfTask         = new PluginFusioninventoryTask();
       $pfTaskJob      = new PluginFusioninventoryTaskJob();
       $pfTaskJobstate = new PluginFusioninventoryTaskjobstate();
-
-      $DB->connect();
 
       //We only work on 1 task
       $pfTask->delete(['id' => 1], true);

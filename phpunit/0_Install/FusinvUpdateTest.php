@@ -58,7 +58,6 @@ class UpdateTest extends RestoreDatabase_TestCase {
    function update($version = '', $verify = false, $nbrules = 0) {
       self::restore_database();
       global $DB;
-      $DB->connect();
 
       if ($version == '') {
          return;
@@ -133,8 +132,6 @@ class UpdateTest extends RestoreDatabase_TestCase {
    private function verifyEntityRules($nbrules = 0) {
       global $DB;
 
-      $DB->connect();
-
       if ($nbrules == 0) {
          return;
       }
@@ -154,7 +151,6 @@ class UpdateTest extends RestoreDatabase_TestCase {
 
    private function verifyConfig() {
       global $DB;
-      $DB->connect();
 
       $a_configs = getAllDatasFromTable('glpi_plugin_fusioninventory_configs',
          ['type' => 'states_id_default']);

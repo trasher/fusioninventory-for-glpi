@@ -52,8 +52,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
    public function AddPrinter() {
       global $DB;
 
-      $DB->connect();
-
       $this->update_time = date('Y-m-d H:i:s');
 
       $a_inventory = [
@@ -119,8 +117,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
    public function PrinterGeneral() {
       global $DB;
 
-      $DB->connect();
-
       $printer = new Printer();
 
       $printer->getFromDB(1);
@@ -183,8 +179,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
    public function PrinterSnmpExtension() {
       global $DB;
 
-      $DB->connect();
-
       $pfPrinter = new PluginFusioninventoryPrinter();
       $a_printer = current($pfPrinter->find("`printers_id`='1'", "", 1));
       unset($a_printer['last_fusioninventory_update']);
@@ -208,8 +202,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
    public function PrinterPageCounter() {
       global $DB;
 
-      $DB->connect();
-
       $pfPrinterLog = new PluginFusioninventoryPrinterLog();
 
       $a_pages = $pfPrinterLog->find("`printers_id`='1'");
@@ -224,8 +216,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
     */
    public function PrinterCartridgeBlack() {
       global $DB;
-
-      $DB->connect();
 
       $pfPrinterCartridge = new PluginFusioninventoryPrinterCartridge();
 
@@ -243,8 +233,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
    public function PrinterCartridgeCyan() {
       global $DB;
 
-      $DB->connect();
-
       $pfPrinterCartridge = new PluginFusioninventoryPrinterCartridge();
 
       $a_cartridge = $pfPrinterCartridge->find("`printers_id`='1'
@@ -260,8 +248,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
     */
    public function PrinterCartridgeYellow() {
       global $DB;
-
-      $DB->connect();
 
       $pfPrinterCartridge = new PluginFusioninventoryPrinterCartridge();
 
@@ -279,8 +265,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
    public function PrinterCartridgeMagenta() {
       global $DB;
 
-      $DB->connect();
-
       $pfPrinterCartridge = new PluginFusioninventoryPrinterCartridge();
 
       $a_cartridge = $pfPrinterCartridge->find("`printers_id`='1'
@@ -297,8 +281,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
    public function PrinterAllCartridges() {
       global $DB;
 
-      $DB->connect();
-
       $pfPrinterCartridge = new PluginFusioninventoryPrinterCartridge();
 
       $a_cartridge = $pfPrinterCartridge->find("");
@@ -312,8 +294,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
     */
    public function NewPrinterFromNetdiscovery() {
       global $DB;
-
-      $DB->connect();
 
       $pfCNetworkDiscovery = new PluginFusioninventoryCommunicationNetworkDiscovery();
       $GLPIlog = new GLPIlogs();
@@ -391,8 +371,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
    public function updatePrinterFromNetdiscovery() {
       global $DB;
 
-      $DB->connect();
-
       $pfCNetworkDiscovery = new PluginFusioninventoryCommunicationNetworkDiscovery();
       $GLPIlog = new GLPIlogs();
       $networkName = new NetworkName();
@@ -468,8 +446,6 @@ class PrinterUpdate extends RestoreDatabase_TestCase {
     */
    public function updatePrinterFromNetdiscoveryToInventory() {
       global $DB;
-
-      $DB->connect();
 
       $pfCNetworkDiscovery = new PluginFusioninventoryCommunicationNetworkDiscovery();
 

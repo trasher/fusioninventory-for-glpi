@@ -49,8 +49,6 @@ class NetworkDiscoveryTest extends RestoreDatabase_TestCase {
    public function prepareDB() {
       global $DB;
 
-      $DB->connect();
-
       $computer        = new Computer();
       $pfAgent         = new PluginFusioninventoryAgent();
       $pfTask          = new PluginFusioninventoryTask();
@@ -177,8 +175,6 @@ class NetworkDiscoveryTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify prepare a network discovery task
-      $DB->connect();
-
       PluginFusioninventoryTask::cronTaskscheduler();
 
       $pfTask = new PluginFusioninventoryTask();
@@ -200,8 +196,6 @@ class NetworkDiscoveryTest extends RestoreDatabase_TestCase {
       global $DB;
 
       // Verify prepare a network discovery task
-      $DB->connect();
-
       $pfTask = new PluginFusioninventoryTask();
 
       $data = $pfTask->getJoblogs([2]);

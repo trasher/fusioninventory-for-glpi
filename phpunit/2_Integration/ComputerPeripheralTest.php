@@ -146,8 +146,6 @@ class ComputerPeripheral extends RestoreDatabase_TestCase {
    public function PeripheralUniqueSerialimport() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;

@@ -120,8 +120,6 @@ class NetworkEquipmentLLDPTest extends Common_TestCase {
    public function NortelSwitch() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $a_lldp = [
@@ -198,8 +196,6 @@ class NetworkEquipmentLLDPTest extends Common_TestCase {
    public function NortelUnmanaged() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $a_lldp = [
@@ -275,8 +271,6 @@ class NetworkEquipmentLLDPTest extends Common_TestCase {
    public function NortelNodevice() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $a_lldp = [
@@ -337,8 +331,6 @@ class NetworkEquipmentLLDPTest extends Common_TestCase {
     */
    public function Cisco1Switch() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 
@@ -442,8 +434,6 @@ class NetworkEquipmentLLDPTest extends Common_TestCase {
     */
    public function Cisco1Unmanaged() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 
@@ -560,8 +550,6 @@ class NetworkEquipmentLLDPTest extends Common_TestCase {
    public function Cisco1Nodevice() {
       global $DB;
 
-      $DB->connect();
-
       self::restore_database();
 
       $a_lldp = [
@@ -621,8 +609,6 @@ class NetworkEquipmentLLDPTest extends Common_TestCase {
     */
    public function Cisco2Switch() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 
@@ -697,33 +683,5 @@ class NetworkEquipmentLLDPTest extends Common_TestCase {
                           'Link port');
 
    }
-
-
-   /**
-    * @test
-    */
-   public function testCisco2Unmanaged() {
-
-      $this->mark_incomplete();
-
-      global $DB;
-
-      $DB->connect();
-   }
-
-
-   /**
-    * @test
-    */
-   public function Cisco2Nodevice() {
-
-      $this->mark_incomplete();
-
-      global $DB;
-
-      $DB->connect();
-
-   }
-
 
 }

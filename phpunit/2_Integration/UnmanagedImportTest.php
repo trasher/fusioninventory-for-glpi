@@ -172,29 +172,4 @@ class UnmanagedImportTest extends Common_TestCase {
 
    }
 
-
-   /**
-    * @test
-    */
-   public function ImportComputer() {
-      $this->mark_incomplete();
-      global $DB;
-
-      $DB->connect();
-
-   }
-
-
-   /**
-    * @test
-    */
-   public function ImportPrinter() {
-      $this->mark_incomplete();
-      global $DB;
-
-      $DB->connect();
-
-   }
-
-
 }

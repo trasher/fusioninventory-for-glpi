@@ -51,8 +51,6 @@ class DevicesLocks extends RestoreDatabase_TestCase {
    public function computerLockItem() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -141,8 +139,6 @@ class DevicesLocks extends RestoreDatabase_TestCase {
    public function computerLockItemtype() {
       global $DB;
 
-      $DB->connect();
-
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
       $_SESSION["glpiname"] = 'Plugin_FusionInventory';
@@ -218,8 +214,6 @@ class DevicesLocks extends RestoreDatabase_TestCase {
     */
    public function computerManufacturerLock() {
       global $DB;
-
-      $DB->connect();
 
       self::restore_database();
 
@@ -317,8 +311,6 @@ class DevicesLocks extends RestoreDatabase_TestCase {
     */
    public function switchLockItemtype() {
       global $DB;
-
-      $DB->connect();
 
       $_SESSION['glpiactive_entity'] = 0;
       $_SESSION["plugin_fusioninventory_entity"] = 0;
