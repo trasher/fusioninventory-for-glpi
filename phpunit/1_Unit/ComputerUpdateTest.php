@@ -274,7 +274,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
           ];
 
       $pfiComputerLib   = new PluginFusioninventoryInventoryComputerLib();
-      $computer         = new Computer();
       $pfFormatconvert  = new PluginFusioninventoryFormatconvert();
 
       $a_inventory = $pfFormatconvert->replaceids($a_inventory, 'Computer', 0);
@@ -283,10 +282,13 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       $a_inventory['fusioninventorycomputer']['serialized_inventory'] =
                Toolbox::addslashes_deep($serialized);
 
-      $this->items_id = $computer->add(['serial'      => 'XB63J7D',
-                                             'entities_id' => 0]);
+      $computer = new Computer();
+      $this->items_id = (int)$computer->add([
+         'serial'      => 'XB63J7D',
+         'entities_id' => 0
+      ]);
+      $this->assertGreaterThan(0, $this->items_id);
 
-      $this->assertGreaterThan(0, $this->items_id, false);
       $pfiComputerLib->updateComputer($a_inventory, $this->items_id, false);
 
       // To be sure not have 2 same informations
@@ -305,14 +307,25 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerGeneral() {
       global $DB;
 
+      $this->addComputer();
       $computer = new Computer();
 
-      $computer->getFromDB(1);
+      $this->assertTrue(
+         $computer->getFromDB($this->items_id),
+         'Computer #' . $this->items_id . ' does not exists!'
+      );
       unset($computer->fields['date_mod']);
       unset($computer->fields['date_creation']);
+
+      $this->assertGreaterThan(0, $computer->fields['domains_id']);
+      unset($computer->fields['domains_id']);
+
+      $this->assertGreaterThan(0, $computer->fields['computertypes_id']);
+      unset($computer->fields['computertypes_id']);
+
       $a_reference = [
           'name'                             => 'pc',
-          'id'                               => '1',
+          'id'                               => (string)$this->items_id,
           'entities_id'                      => '0',
           'serial'                           => 'XB63J7D',
           'otherserial'                      => null,
@@ -323,10 +336,8 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
           'comment'                          => null,
           'autoupdatesystems_id'             => '0',
           'locations_id'                     => '0',
-          'domains_id'                       => '1',
           'networks_id'                      => '0',
           'computermodels_id'                => '0',
-          'computertypes_id'                 => '1',
           'is_template'                      => '0',
           'template_name'                    => null,
           'manufacturers_id'                 => '0',
@@ -339,7 +350,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
           'uuid'                             => '68405E00-E5BE-11DF-801C-B05981201220',
           'is_recursive'                     => '0'
       ];
-
       $this->assertEquals($a_reference, $computer->fields);
 
       $ios = new Item_OperatingSystem();
@@ -349,13 +359,18 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
          'items_id' => $computer->getID()
       ]);
 
+      $this->assertGreaterThan(0, $ios->fields['operatingsystems_id']);
+      unset($ios->fields['operatingsystems_id']);
+
+      $this->assertGreaterThan(0, $ios->fields['operatingsystemversions_id']);
+      unset($ios->fields['operatingsystemversions_id']);
+
+      $this->assertGreaterThan(0, $ios->fields['operatingsystemservicepacks_id']);
+      unset($ios->fields['operatingsystemservicepacks_id']);
+
       $a_reference = [
-         'id'                                => '1',
-         'items_id'                          => '1',
+         'items_id'                          => (string)$this->items_id,
          'itemtype'                          => 'Computer',
-         'operatingsystems_id'               => '1',
-         'operatingsystemversions_id'        => '1',
-         'operatingsystemservicepacks_id'    => '1',
          'operatingsystemarchitectures_id'   => '0',
          'operatingsystemkernelversions_id'  => '0',
          'license_number'                    => '',
@@ -367,6 +382,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
          'is_recursive'                      => '0'
       ];
 
+      unset($ios->fields['id']);
       unset($ios->fields['date_mod']);
       unset($ios->fields['date_creation']);
       $this->assertEquals($a_reference, $ios->fields);
@@ -426,12 +442,16 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       global $DB;
 
       $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'GentiumBasic'
+         ])
+      );
 
-      $software->getFromDB(1);
+      unset($software->fields['id']);
       unset($software->fields['date_mod']);
       unset($software->fields['date_creation']);
       $a_reference = [
-          'id'                      => '1',
           'name'                    => 'GentiumBasic',
           'entities_id'             => '0',
           'is_recursive'            => '0',
@@ -465,12 +485,16 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       global $DB;
 
       $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'ImageMagick'
+         ])
+      );
 
-      $software->getFromDB(2);
+      unset($software->fields['id']);
       unset($software->fields['date_mod']);
       unset($software->fields['date_creation']);
       $a_reference = [
-          'id'                      => '2',
           'name'                    => 'ImageMagick',
           'entities_id'             => '0',
           'is_recursive'            => '0',
@@ -504,12 +528,16 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       global $DB;
 
       $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'ORBit2'
+         ])
+      );
 
-      $software->getFromDB(3);
+      unset($software->fields['id']);
       unset($software->fields['date_mod']);
       unset($software->fields['date_creation']);
       $a_reference = [
-          'id'                      => '3',
           'name'                    => 'ORBit2',
           'entities_id'             => '0',
           'is_recursive'            => '0',
@@ -542,17 +570,29 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareVersionGentiumBasicadded() {
       global $DB;
 
+      $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'GentiumBasic'
+         ])
+      );
+
       $softwareVersion = new SoftwareVersion();
 
-      $softwareVersion->getFromDB(1);
+      $this->assertTrue(
+         $softwareVersion->getFromDBByCrit([
+            'softwares_id' => $software->fields['id']
+         ])
+      );
+
+      unset($softwareVersion->fields['id']);
       unset($softwareVersion->fields['date_mod']);
       unset($softwareVersion->fields['date_creation']);
       $a_reference = [
-          'id'                   => '1',
           'name'                 => '110',
           'entities_id'          => '0',
           'is_recursive'         => '0',
-          'softwares_id'         => '1',
+          'softwares_id'         => $software->fields['id'],
           'states_id'            => '0',
           'comment'              => null,
           'operatingsystems_id'  => '0'
@@ -569,17 +609,29 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareVersionImageMagickadded() {
       global $DB;
 
+      $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'ImageMagick'
+         ])
+      );
+
       $softwareVersion = new SoftwareVersion();
 
-      $softwareVersion->getFromDB(2);
+      $this->assertTrue(
+         $softwareVersion->getFromDBByCrit([
+            'softwares_id' => $software->fields['id']
+         ])
+      );
+
+      unset($softwareVersion->fields['id']);
       unset($softwareVersion->fields['date_mod']);
       unset($softwareVersion->fields['date_creation']);
       $a_reference = [
-          'id'                   => '2',
           'name'                 => '6.8.0.7_1',
           'entities_id'          => '0',
           'is_recursive'         => '0',
-          'softwares_id'         => '2',
+          'softwares_id'         => $software->fields['id'],
           'states_id'            => '0',
           'comment'              => null,
           'operatingsystems_id'  => '0'
@@ -596,17 +648,29 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareVersionORBit2added() {
       global $DB;
 
+      $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'ORBit2'
+         ])
+      );
+
       $softwareVersion = new SoftwareVersion();
 
-      $softwareVersion->getFromDB(3);
+      $this->assertTrue(
+         $softwareVersion->getFromDBByCrit([
+            'softwares_id' => $software->fields['id']
+         ])
+      );
+
+      unset($softwareVersion->fields['id']);
       unset($softwareVersion->fields['date_mod']);
       unset($softwareVersion->fields['date_creation']);
       $a_reference = [
-          'id'                   => '3',
           'name'                 => '2.14.19',
           'entities_id'          => '0',
           'is_recursive'         => '0',
-          'softwares_id'         => '3',
+          'softwares_id'         => $software->fields['id'],
           'states_id'            => '0',
           'comment'              => null,
           'operatingsystems_id'  => '0'
@@ -623,23 +687,36 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerSoftwareGentiumBasic() {
       global $DB;
 
+      $this->addComputer();
+      $computer = new Computer();
+
+      $this->assertTrue(
+         $computer->getFromDB($this->items_id),
+         'Computer #' . $this->items_id . ' does not exists!'
+      );
+
+      $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'GentiumBasic'
+         ])
+      );
+
+      $softwareVersion = new SoftwareVersion();
+      $this->assertTrue(
+         $softwareVersion->getFromDBByCrit([
+            'softwares_id' => $software->fields['id']
+         ])
+      );
+
       $computer_SoftwareVersion = new Computer_SoftwareVersion();
-
-      $computer_SoftwareVersion->getFromDB(1);
-
-      $a_reference = [
-          'id'                   => '1',
-          'computers_id'         => '1',
-          'softwareversions_id'  => '1',
-          'is_deleted_computer'  => '0',
-          'is_template_computer' => '0',
-          'entities_id'          => '0',
-          'is_deleted'           => '0',
-          'is_dynamic'           => '1',
-          'date_install'         => null
-      ];
-
-      $this->assertEquals($a_reference, $computer_SoftwareVersion->fields);
+      $this->assertTrue(
+         $computer_SoftwareVersion->getFromDBByCrit([
+            'softwareversions_id'   => $softwareVersion->fields['id'],
+            'computers_id'          => $computer->fields['id']
+         ])
+      );
+      $this->assertEquals('1', $computer_SoftwareVersion->fields['is_dynamic']);
    }
 
 
@@ -650,23 +727,36 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerSoftwareImageMagick() {
       global $DB;
 
+      $this->addComputer();
+      $computer = new Computer();
+
+      $this->assertTrue(
+         $computer->getFromDB($this->items_id),
+         'Computer #' . $this->items_id . ' does not exists!'
+      );
+
+      $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'ImageMagick'
+         ])
+      );
+
+      $softwareVersion = new SoftwareVersion();
+      $this->assertTrue(
+         $softwareVersion->getFromDBByCrit([
+            'softwares_id' => $software->fields['id']
+         ])
+      );
+
       $computer_SoftwareVersion = new Computer_SoftwareVersion();
-
-      $computer_SoftwareVersion->getFromDB(2);
-
-      $a_reference = [
-          'id'                   => '2',
-          'computers_id'         => '1',
-          'softwareversions_id'  => '2',
-          'is_deleted_computer'  => '0',
-          'is_template_computer' => '0',
-          'entities_id'          => '0',
-          'is_deleted'           => '0',
-          'is_dynamic'           => '1',
-          'date_install'         => null
-      ];
-
-      $this->assertEquals($a_reference, $computer_SoftwareVersion->fields);
+      $this->assertTrue(
+         $computer_SoftwareVersion->getFromDBByCrit([
+            'softwareversions_id'   => $softwareVersion->fields['id'],
+            'computers_id'          => $computer->fields['id']
+         ])
+      );
+      $this->assertEquals('1', $computer_SoftwareVersion->fields['is_dynamic']);
    }
 
 
@@ -677,23 +767,36 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerSoftwareORBit2() {
       global $DB;
 
+      $this->addComputer();
+      $computer = new Computer();
+
+      $this->assertTrue(
+         $computer->getFromDB($this->items_id),
+         'Computer #' . $this->items_id . ' does not exists!'
+      );
+
+      $software = new Software();
+      $this->assertTrue(
+         $software->getFromDBByCrit([
+            'name'   => 'ORBit2'
+         ])
+      );
+
+      $softwareVersion = new SoftwareVersion();
+      $this->assertTrue(
+         $softwareVersion->getFromDBByCrit([
+            'softwares_id' => $software->fields['id']
+         ])
+      );
+
       $computer_SoftwareVersion = new Computer_SoftwareVersion();
-
-      $computer_SoftwareVersion->getFromDB(3);
-
-      $a_reference = [
-          'id'                   => '3',
-          'computers_id'         => '1',
-          'softwareversions_id'  => '3',
-          'is_deleted_computer'  => '0',
-          'is_template_computer' => '0',
-          'entities_id'          => '0',
-          'is_deleted'           => '0',
-          'is_dynamic'           => '1',
-          'date_install'         => '2016-07-20'
-      ];
-
-      $this->assertEquals($a_reference, $computer_SoftwareVersion->fields);
+      $this->assertTrue(
+         $computer_SoftwareVersion->getFromDBByCrit([
+            'softwareversions_id'   => $softwareVersion->fields['id'],
+            'computers_id'          => $computer->fields['id']
+         ])
+      );
+      $this->assertEquals('1', $computer_SoftwareVersion->fields['is_dynamic']);
    }
 
 
@@ -708,15 +811,15 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       foreach ($a_data as $id=>$data) {
          unset($data['date_mod']);
          unset($data['date_creation']);
+         unset($data['id']);
+         unset($data['manufacturers_id']);
          $a_data[$id] = $data;
       }
       $a_reference = [
           '1' => [
-                     'id'                 => '1',
                      'designation'        => 'Core i3',
                      'frequence'                => '2400',
                      'comment'                  => null,
-                     'manufacturers_id'         => '1',
                      'frequency_default'        => '2400',
                      'nbcores_default'          => null,
                      'nbthreads_default'        => null,
@@ -725,11 +828,9 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                      'deviceprocessormodels_id' => null
                  ],
           '2' => [
-                     'id'                       => '2',
                      'designation'              => 'Core i3',
                      'frequence'                => '2600',
                      'comment'                  => null,
-                     'manufacturers_id'         => '1',
                      'frequency_default'        => '2600',
                      'nbcores_default'          => null,
                      'nbthreads_default'        => null,
@@ -738,7 +839,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                      'deviceprocessormodels_id' => null
                  ]
       ];
-      $this->assertEquals($a_reference, $a_data);
+      $this->assertEquals(array_values($a_reference), array_values($a_data));
    }
 
 
@@ -749,15 +850,20 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerProcessorLink() {
       global $DB;
 
+      $this->AddComputer();
       $a_dataLink = getAllDatasFromTable("glpi_items_deviceprocessors",
-         ['itemtype' => 'Computer', 'items_id' => '1']);
+         ['itemtype' => 'Computer', 'items_id' => $this->items_id]);
+
+      foreach ($a_dataLink as $id=>$data) {
+         unset($data['id']);
+         unset($data['items_id']);
+         unset($data['deviceprocessors_id']);
+         $a_dataLink[$id] = $data;
+      }
 
       $a_reference = [
           '1' => [
-                     'id'                    => '1',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
-                     'deviceprocessors_id'   => '1',
                      'frequency'             => '2400',
                      'serial'                => '',
                      'is_deleted'            => '0',
@@ -772,10 +878,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                      'states_id'             => '0'
                  ],
           '2' => [
-                     'id' => '2',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
-                     'deviceprocessors_id'   => '1',
                      'frequency'             => '2400',
                      'serial'                => '',
                      'is_deleted'            => '0',
@@ -790,10 +893,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                      'states_id'             => '0'
                  ],
           '3' => [
-                     'id' => '3',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
-                     'deviceprocessors_id'   => '1',
                      'frequency'             => '2405',
                      'serial'                => '',
                      'is_deleted'            => '0',
@@ -808,10 +908,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                      'states_id'             => '0'
                  ],
           '4' => [
-                     'id' => '4',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
-                     'deviceprocessors_id'   => '2',
                      'frequency'             => '2600',
                      'serial'                => '',
                      'is_deleted'            => '0',
@@ -827,7 +924,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                  ]
       ];
 
-      $this->assertEquals($a_reference, $a_dataLink);
+      $this->assertEquals(array_values($a_reference), array_values($a_dataLink));
    }
 
 
@@ -840,37 +937,35 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_data = getAllDatasFromTable("glpi_devicememories");
       foreach ($a_data as $id=>$data) {
+         unset($data['id']);
+         unset($data['devicememorytypes_id']);
          unset($data['date_mod']);
          unset($data['date_creation']);
          $a_data[$id] = $data;
       }
       $a_reference = [
           '1' => [
-                     'id'                    => '1',
                      'designation'           => 'DDR3 - SODIMM (None)',
                      'frequence'             => '1067',
                      'comment'               => null,
                      'manufacturers_id'      => '0',
                      'size_default'          => '0',
-                     'devicememorytypes_id'  => '5',
                      'entities_id'           => '0',
                      'is_recursive'          => '0',
                      'devicememorymodels_id' => null
                  ],
           '2' => [
-                     'id'                    => '2',
                      'designation'           => 'DDR3 - SODIMM (None)',
                      'frequence'             => '1333',
                      'comment'               => null,
                      'manufacturers_id'      => '0',
                      'size_default'          => '0',
-                     'devicememorytypes_id'  => '5',
                      'entities_id'           => '0',
                      'is_recursive'          => '0',
                      'devicememorymodels_id' => null
                  ]
       ];
-      $this->assertEquals($a_reference, $a_data);
+      $this->assertEquals(array_values($a_reference), array_values($a_data));
    }
 
 
@@ -881,18 +976,23 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerMemoryLink() {
       global $DB;
 
+      $this->AddComputer();
       $a_dataLink = getAllDatasFromTable("glpi_items_devicememories",
-         ['itemtype' => 'Computer', 'items_id' => '1']);
+         ['itemtype' => 'Computer', 'items_id' => $this->items_id]);
+
+      foreach ($a_dataLink as $id=>$data) {
+         unset($data['id']);
+         unset($data['items_id']);
+         unset($data['devicememories_id']);
+         $a_dataLink[$id] = $data;
+      }
 
       $a_reference = [
           '1' => [
-                     'id'                    => '1',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
                      'serial'                => '98F6FF18',
                      'is_deleted'            => '0',
                      'is_dynamic'            => '1',
-                     'devicememories_id'     => '1',
                      'size'                  => '2048',
                      'entities_id'           => '0',
                      'is_recursive'          => '0',
@@ -902,13 +1002,10 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                      'states_id'             => '0'
                  ],
           '2' => [
-                     'id' => '2',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
                      'serial'                => '95F1833E',
                      'is_deleted'            => '0',
                      'is_dynamic'            => '1',
-                     'devicememories_id'     => '1',
                      'size'                  => '2048',
                      'entities_id'           => '0',
                      'is_recursive'          => '0',
@@ -918,13 +1015,10 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                      'states_id'             => '0'
                  ],
           '3' => [
-                     'id' => '3',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
                      'serial'                => '95F1833G',
                      'is_deleted'            => '0',
                      'is_dynamic'            => '1',
-                     'devicememories_id'     => '1',
                      'size'                  => '2048',
                      'entities_id'           => '0',
                      'is_recursive'          => '0',
@@ -934,13 +1028,10 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                      'states_id'             => '0'
                  ],
           '4' => [
-                     'id' => '4',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
                      'serial'                => '95F1833H',
                      'is_deleted'            => '0',
                      'is_dynamic'            => '1',
-                     'devicememories_id'     => '2',
                      'size'                  => '2048',
                      'entities_id'           => '0',
                      'is_recursive'          => '0',
@@ -951,7 +1042,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                  ]
       ];
 
-      $this->assertEquals($a_reference, $a_dataLink);
+      $this->assertEquals(array_values($a_reference), array_values($a_dataLink));
    }
 
 
@@ -962,10 +1053,13 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerNetworkport() {
       global $DB;
 
+      $this->AddComputer();
       $a_dataLink = getAllDatasFromTable("glpi_networkports",
-         ['itemtype' => 'Computer', 'items_id' => '1']);
+         ['itemtype' => 'Computer', 'items_id' => $this->items_id]);
 
       foreach ($a_dataLink as $id=>$data) {
+         unset($data['id']);
+         unset($data['items_id']);
          unset($data['date_mod']);
          unset($data['date_creation']);
          $a_dataLink[$id] = $data;
@@ -973,8 +1067,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_reference = [
           '1' => [
-                     'id'                    => '1',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
                      'is_deleted'            => '0',
                      'is_dynamic'            => '1',
@@ -988,8 +1080,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
                  ],
           '2' => [
-                     'id'                    => '2',
-                     'items_id'              => '1',
                      'itemtype'              => 'Computer',
                      'is_deleted'            => '0',
                      'is_dynamic'            => '1',
@@ -1003,7 +1093,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
                  ]
       ];
 
-      $this->assertEquals($a_reference, $a_dataLink);
+      $this->assertEquals(array_values($a_reference), array_values($a_dataLink));
    }
 
 
@@ -1014,12 +1104,9 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerMonitor() {
       global $DB;
 
-      $a_dataMonit = getAllDatasFromTable("glpi_monitors");
-
-      $this->assertEquals(1, count($a_dataMonit), "Must have 1 monitor created");
-
+      $this->AddComputer();
       $a_dataLink = getAllDatasFromTable("glpi_computers_items",
-         ['itemtype' => 'Monitor', 'computers_id' => '1']);
+         ['itemtype' => 'Monitor', 'computers_id' => $this->items_id]);
 
       $this->assertEquals(1, count($a_dataLink), "Number of monitors not right");
 
@@ -1028,11 +1115,11 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       $monitor = new Monitor();
       $monitor->getFromDB($a_dataLink['items_id']);
 
+      unset($monitor->fields['id']);
       unset($monitor->fields['date_mod']);
       unset($monitor->fields['date_creation']);
 
       $a_reference = [
-          'id'                => '1',
           'entities_id'       => '0',
           'name'              => 'ThinkPad Display 1280x800',
           'contact'           => 'ddurieux',
