@@ -2280,7 +2280,7 @@ class PluginFusioninventoryInventoryComputerLib extends PluginFusioninventoryInv
             }
          }
       }
-      $whereid .= " AND CONCAT_WS('$$$$', `name`, `manufacturers_id`) IN (".implode(",", $a_softSearch).")";
+      $whereid .= " AND CONCAT_WS('$$$$', `name`, `manufacturers_id`) IN (".implode(',', array_fill(0, count($a_softSearch), '?')).")";
 
       $sql     = "SELECT max( id ) AS max FROM `glpi_softwares`";
       $result  = $DB->query($sql);
@@ -2294,9 +2294,15 @@ class PluginFusioninventoryInventoryComputerLib extends PluginFusioninventoryInv
       $sql = "SELECT `id`, `name`, `manufacturers_id`
               FROM `glpi_softwares`
               WHERE `entities_id`='".$entities_id."'".$whereid;
-      foreach ($DB->request($sql) as $data) {
+      $stmt = $DB->prepare($sql);
+      foreach ($a_softSearch as $soft) {
+         $stmt->bind_param('s', $soft);
+      }
+      $result = $stmt->execute();
+      while ($data = $result->fetch()) {
          $this->softList[Toolbox::addslashes_deep($data['name'])."$$$$".$data['manufacturers_id']] = $data['id'];
       }
+      mysqli_stmt_close($stmt);
       return $lastid;
    }
 
