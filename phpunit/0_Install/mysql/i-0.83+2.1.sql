@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvdeploy_files` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `is_p2p` tinyint(1) NOT NULL DEFAULT '0',
   `mimetype` char(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'na',
-  `create_date` datetime DEFAULT NULL,
+  `create_date` timestamp NULL DEFAULT NULL,
   `p2p_retention_days` int(11) NOT NULL DEFAULT '0',
   `uncompress` tinyint(1) NOT NULL DEFAULT '0',
   `sha512` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
@@ -271,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvdeploy_mirrors` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `comment` text COLLATE utf8_unicode_ci NOT NULL,
-  `date_mod` datetime DEFAULT NULL,
+  `date_mod` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `entities_id` (`entities_id`),
   KEY `date_mod` (`date_mod`)
@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvdeploy_mirrors` (
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvdeploy_orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` int(11) NOT NULL DEFAULT '0' COMMENT 'INSTALL, UNINSTALL, OTHER',
-  `create_date` datetime DEFAULT NULL,
+  `create_date` timestamp NULL DEFAULT NULL,
   `plugin_fusinvdeploy_packages_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `type` (`type`),
@@ -296,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvdeploy_packages` (
   `comment` text COLLATE utf8_unicode_ci NOT NULL,
   `entities_id` int(11) NOT NULL DEFAULT '0',
   `is_recursive` tinyint(1) NOT NULL DEFAULT '0',
-  `date_mod` datetime DEFAULT NULL,
+  `date_mod` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `entities_id` (`entities_id`),
   KEY `date_mod` (`date_mod`)
@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvdeploy_taskjobs` (
 ,`plugin_fusinvdeploy_tasks_id` int(11)
 ,`entities_id` int(11)
 ,`name` varchar(255)
-,`date_creation` datetime
+,`date_creation` timestamp NULL
 ,`retry_nb` tinyint(2)
 ,`retry_time` int(11)
 ,`plugins_id` int(11)
@@ -330,12 +330,12 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvdeploy_tasks` (
 `id` int(11)
 ,`entities_id` int(11)
 ,`name` varchar(255)
-,`date_creation` datetime
+,`date_creation` timestamp NULL
 ,`comment` text
 ,`is_active` tinyint(1)
 ,`communication` varchar(255)
 ,`permanent` varchar(255)
-,`date_scheduled` datetime
+,`date_scheduled` timestamp NULL
 ,`periodicity_count` int(6)
 ,`periodicity_type` varchar(255)
 ,`execution_id` bigint(20)
@@ -444,11 +444,11 @@ INSERT INTO `glpi_plugin_fusinvinventory_blacklists` (`id`, `plugin_fusioninvent
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvinventory_computers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `computers_id` int(11) NOT NULL DEFAULT '0',
-  `bios_date` datetime DEFAULT NULL,
+  `bios_date` timestamp NULL DEFAULT NULL,
   `bios_version` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `bios_assettag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `bios_manufacturers_id` int(11) NOT NULL DEFAULT '0',
-  `operatingsystem_installationdate` datetime DEFAULT NULL,
+  `operatingsystem_installationdate` timestamp NULL DEFAULT NULL,
   `winowner` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `wincompany` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -489,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvinventory_libserialization` (
   `serialized_sections2` longtext COLLATE utf8_unicode_ci,
   `serialized_sections3` longtext COLLATE utf8_unicode_ci,
   `hash` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `last_fusioninventory_update` datetime DEFAULT NULL,
+  `last_fusioninventory_update` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`internal_id`),
   KEY `computers_id` (`computers_id`),
   KEY `last_fusioninventory_update` (`last_fusioninventory_update`)
@@ -510,7 +510,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvinventory_licenseinfos` (
   `is_trial` tinyint(1) NOT NULL DEFAULT '0',
   `is_update` tinyint(1) NOT NULL DEFAULT '0',
   `is_oem` tinyint(1) NOT NULL DEFAULT '0',
-  `activation_date` datetime DEFAULT NULL,
+  `activation_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
   KEY `fullname` (`fullname`)
@@ -50530,7 +50530,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_networkequipments` (
   `uptime` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `cpu` int(3) NOT NULL DEFAULT '0' COMMENT '%',
   `memory` int(11) NOT NULL DEFAULT '0',
-  `last_fusioninventory_update` datetime DEFAULT NULL,
+  `last_fusioninventory_update` timestamp NULL DEFAULT NULL,
   `last_PID_update` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `networkequipments_id` (`networkequipments_id`),
@@ -50540,7 +50540,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_networkequipments` (
 
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_networkportconnectionlogs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date_mod` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_mod` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
   `creation` tinyint(1) NOT NULL DEFAULT '0',
   `networkports_id_source` int(11) NOT NULL DEFAULT '0',
   `networkports_id_destination` int(11) NOT NULL DEFAULT '0',
@@ -50555,7 +50555,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_networkportlogs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `networkports_id` int(11) NOT NULL DEFAULT '0',
   `plugin_fusioninventory_mappings_id` int(11) NOT NULL DEFAULT '0',
-  `date_mod` datetime DEFAULT NULL,
+  `date_mod` timestamp NULL DEFAULT NULL,
   `value_old` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `value_new` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `plugin_fusioninventory_agentprocesses_id` int(11) NOT NULL DEFAULT '0',
@@ -50584,7 +50584,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_networkports` (
   `ifdescr` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `portduplex` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `trunk` tinyint(1) NOT NULL DEFAULT '0',
-  `lastup` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `lastup` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `networkports_id` (`networkports_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -50853,7 +50853,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_printercartridges` (
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_printerlogs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `printers_id` int(11) NOT NULL DEFAULT '0',
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
   `pages_total` int(11) NOT NULL DEFAULT '0',
   `pages_n_b` int(11) NOT NULL DEFAULT '0',
   `pages_color` int(11) NOT NULL DEFAULT '0',
@@ -50878,7 +50878,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_printers` (
   `plugin_fusinvsnmp_models_id` int(11) NOT NULL DEFAULT '0',
   `plugin_fusinvsnmp_configsecurities_id` int(11) NOT NULL DEFAULT '0',
   `frequence_days` int(5) NOT NULL DEFAULT '1',
-  `last_fusioninventory_update` datetime DEFAULT NULL,
+  `last_fusioninventory_update` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unicity` (`printers_id`),
   KEY `plugin_fusinvsnmp_configsecurities_id` (`plugin_fusinvsnmp_configsecurities_id`),
@@ -50891,9 +50891,9 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvsnmp_statediscoveries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `plugin_fusioninventory_taskjob_id` int(11) NOT NULL DEFAULT '0',
   `plugin_fusioninventory_agents_id` int(11) NOT NULL DEFAULT '0',
-  `start_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `end_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `date_mod` datetime DEFAULT NULL,
+  `start_time` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `end_time` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_mod` timestamp NULL DEFAULT NULL,
   `threads` int(11) NOT NULL DEFAULT '0',
   `nb_ip` int(11) NOT NULL DEFAULT '0',
   `nb_found` int(11) NOT NULL DEFAULT '0',
@@ -50943,7 +50943,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_agents` (
   `entities_id` int(11) NOT NULL DEFAULT '0',
   `is_recursive` tinyint(1) NOT NULL DEFAULT '1',
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `last_contact` datetime DEFAULT NULL,
+  `last_contact` timestamp NULL DEFAULT NULL,
   `version` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lock` tinyint(1) NOT NULL DEFAULT '0',
   `device_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'XML <DEVICE_ID> TAG VALUE',
@@ -51028,7 +51028,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_credentialips` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `comment` text COLLATE utf8_unicode_ci,
   `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `date_mod` datetime DEFAULT NULL,
+  `date_mod` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -51041,7 +51041,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_credentials` (
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `comment` text COLLATE utf8_unicode_ci,
-  `date_mod` datetime DEFAULT NULL,
+  `date_mod` timestamp NULL DEFAULT NULL,
   `itemtype` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -51050,7 +51050,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_credentials` (
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_ignoredimportdevices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
   `itemtype` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `entities_id` int(11) NOT NULL DEFAULT '0',
   `ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -51275,7 +51275,7 @@ INSERT INTO `glpi_plugin_fusioninventory_profiles` (`id`, `type`, `right`, `plug
 
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_rulematchedlogs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` datetime DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
   `items_id` int(11) NOT NULL DEFAULT '0',
   `itemtype` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `rules_id` int(11) NOT NULL DEFAULT '0',
@@ -51293,7 +51293,7 @@ INSERT INTO `glpi_plugin_fusioninventory_rulematchedlogs` (`id`, `date`, `items_
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_taskjoblogs` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `plugin_fusioninventory_taskjobstates_id` int(11) NOT NULL DEFAULT '0',
-  `date` datetime DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
   `items_id` int(11) NOT NULL DEFAULT '0',
   `itemtype` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `state` int(11) NOT NULL DEFAULT '0',
@@ -51308,7 +51308,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_taskjobs` (
   `plugin_fusioninventory_tasks_id` int(11) NOT NULL DEFAULT '0',
   `entities_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date_creation` datetime DEFAULT NULL,
+  `date_creation` timestamp NULL DEFAULT NULL,
   `retry_nb` tinyint(2) NOT NULL DEFAULT '0',
   `retry_time` int(11) NOT NULL DEFAULT '0',
   `plugins_id` int(11) NOT NULL DEFAULT '0',
@@ -51353,12 +51353,12 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_tasks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `entities_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date_creation` datetime DEFAULT NULL,
+  `date_creation` timestamp NULL DEFAULT NULL,
   `comment` text COLLATE utf8_unicode_ci,
   `is_active` tinyint(1) NOT NULL DEFAULT '0',
   `communication` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'push',
   `permanent` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date_scheduled` datetime DEFAULT NULL,
+  `date_scheduled` timestamp NULL DEFAULT NULL,
   `periodicity_count` int(6) NOT NULL DEFAULT '0',
   `periodicity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `execution_id` bigint(20) NOT NULL DEFAULT '0',
@@ -51372,7 +51372,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_tasks` (
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusioninventory_unknowndevices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date_mod` datetime DEFAULT NULL,
+  `date_mod` timestamp NULL DEFAULT NULL,
   `entities_id` int(11) NOT NULL DEFAULT '0',
   `locations_id` int(11) NOT NULL DEFAULT '0',
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',

@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_agents` (
   `ifaddr_end` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nb_process_query` int(11) NOT NULL DEFAULT '1',
   `nb_process_discovery` int(11) NOT NULL DEFAULT '1',
-  `last_agent_update` datetime DEFAULT NULL,
+  `last_agent_update` timestamp NULL DEFAULT NULL,
   `tracker_agent_version` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lock` int(1) NOT NULL DEFAULT '0',
   `logs` int(1) NOT NULL DEFAULT '0',
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_config_snmp_printer` (
 CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_connection_history` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `FK_computers` int(11) NOT NULL DEFAULT '0',
-  `date` datetime DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
   `state` int(1) NOT NULL DEFAULT '0',
   `username` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `FK_users` int(11) NOT NULL DEFAULT '0',
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_connection_stats` (
 
 CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_discover` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ifaddr` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `descr` text COLLATE utf8_unicode_ci,
@@ -118,8 +118,8 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_errors` (
   `device_type` smallint(6) NOT NULL,
   `device_id` int(11) NOT NULL DEFAULT '0',
   `FK_entities` int(11) NOT NULL DEFAULT '0',
-  `first_pb_date` datetime DEFAULT NULL,
-  `last_pb_date` datetime DEFAULT NULL,
+  `first_pb_date` timestamp NULL DEFAULT NULL,
+  `last_pb_date` timestamp NULL DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ifaddr` (`ifaddr`)
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_networking` (
   `uptime` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `cpu` int(3) NOT NULL DEFAULT '0',
   `memory` int(8) NOT NULL DEFAULT '0',
-  `last_tracker_update` datetime DEFAULT NULL,
+  `last_tracker_update` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_networking` (`FK_networking`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_printers` (
   `FK_model_infos` int(8) NOT NULL DEFAULT '0',
   `FK_snmp_connection` int(8) NOT NULL DEFAULT '0',
   `frequence_days` int(5) NOT NULL DEFAULT '1',
-  `last_tracker_update` datetime DEFAULT NULL,
+  `last_tracker_update` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `FK_printers` (`FK_printers`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_printers_cartridges` (
 CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_printers_history` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `FK_printers` int(11) NOT NULL DEFAULT '0',
-  `date` datetime DEFAULT '0000-00-00 00:00:00',
+  `date` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `pages_total` int(11) NOT NULL DEFAULT '0',
   `pages_n_b` int(11) NOT NULL DEFAULT '0',
   `pages_color` int(11) NOT NULL DEFAULT '0',
@@ -245,8 +245,8 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_printers_history` (
 CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_processes` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `thread_id` int(4) NOT NULL DEFAULT '0',
-  `start_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `end_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `start_time` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `end_time` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` int(4) NOT NULL DEFAULT '0',
   `error_msg` text COLLATE utf8_unicode_ci,
   `process_id` int(11) NOT NULL DEFAULT '0',
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_processes_values` (
   `unknow_mac` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `snmp_errors` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dropdown_add` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`ID`),
   KEY `unknow_mac` (`unknow_mac`,`FK_processes`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -316,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_snmp_history` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `FK_ports` int(11) NOT NULL,
   `Field` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `date_mod` datetime DEFAULT NULL,
+  `date_mod` timestamp NULL DEFAULT NULL,
   `old_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `old_device_type` int(11) NOT NULL DEFAULT '0',
   `old_device_ID` int(11) NOT NULL DEFAULT '0',
@@ -334,8 +334,8 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_tracker_unknown_mac` (
   `ID` int(100) NOT NULL AUTO_INCREMENT,
   `start_FK_processes` int(8) NOT NULL,
   `end_FK_processes` int(8) NOT NULL,
-  `start_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `end_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `start_time` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `end_time` timestamp NULL NOT NULL DEFAULT '0000-00-00 00:00:00',
   `port` int(8) NOT NULL,
   `unknow_mac` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`)
