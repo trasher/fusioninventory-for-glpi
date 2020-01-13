@@ -42,6 +42,13 @@ matrix:
           packages:
             - ant
             - xsltproc
+    - php: 7.4
+      addons:
+        mariadb: 10.3
+        apt:
+          packages:
+            - ant
+            - xsltproc
     - php: nightly
       addons:
         mariadb: 10.3
