@@ -538,7 +538,7 @@ class PluginFusioninventoryInventoryRuleImport extends Rule {
             }
          }
          foreach ($input as $key=>$crit) {
-            if (!in_array($key, $complex_criterias_strings)
+            if ($key != 'itemtype' && !in_array($key, $complex_criterias_strings)
                   && $key != "class"
                   && !is_object($crit)) {
                return false;
