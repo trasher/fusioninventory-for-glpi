@@ -49,8 +49,6 @@ class DeleteLinkedObjects extends RestoreDatabase_TestCase {
    public function IPRange() {
       global $DB;
 
-      $DB->connect();
-
       $iprange = new PluginFusioninventoryIPRange();
       $iprange_ConfigSecurity = new PluginFusioninventoryIPRange_ConfigSecurity();
 

@@ -115,8 +115,6 @@ class PackageJsonTest extends RestoreDatabase_TestCase {
    public function Migration_to_91() {
       global $DB;
 
-      $DB->connect();
-
       // create package orders used before 9.1 version
       $query = "DROP TABLE IF EXISTS `glpi_plugin_fusioninventory_deploypackages` ";
       $DB->query($query);
