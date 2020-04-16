@@ -416,7 +416,7 @@ Compiled Fri 26-Mar-10 09:14 by prod_rel_team',
 
       $a_ports = importArrayFromDB($a_aggregate['networkports_id_list']);
 
-      $this->assertEquals([2, 3], $a_ports, 'aggregate ports');
+      $this->assertEquals([2, 4], $a_ports, 'aggregate ports');
    }
 
 
