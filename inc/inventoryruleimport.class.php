@@ -527,14 +527,7 @@ class PluginFusioninventoryInventoryRuleImport extends Rule {
          foreach ($global_criteria as $criterion) {
             $criteria = $this->getCriteriaByID($criterion);
             foreach ($criteria as $crit) {
-               if ($crit->fields["condition"] !== Rule::PATTERN_EXISTS
-                     && $crit->fields["condition"] !== Rule::PATTERN_DOES_NOT_EXISTS
-                     && $crit->fields["condition"] !== PluginFusioninventoryInventoryRuleImport::PATTERN_ENTITY_RESTRICT
-                     && $crit->fields["condition"] !== PluginFusioninventoryInventoryRuleImport::PATTERN_NETWORK_PORT_RESTRICT
-                     && $crit->fields["condition"] !== PluginFusioninventoryInventoryRuleImport::PATTERN_ONLY_CRITERIA_RULE) {
-
-                     $complex_criterias_strings[] = $crit->fields["criteria"];
-               }
+               $complex_criterias_strings[] = $crit->fields["criteria"];
             }
          }
          foreach ($input as $key=>$crit) {
@@ -552,7 +545,7 @@ class PluginFusioninventoryInventoryRuleImport extends Rule {
       }
 
       // Build the request to check if the machine exists in GLPI
-      $where_entity = "";
+      $where_entity = ""; //FIXME: not used
       if (isset($input['entities_id'])) {
          if (is_array($input['entities_id'])) {
             $where_entity .= implode(',', $input['entities_id']);
