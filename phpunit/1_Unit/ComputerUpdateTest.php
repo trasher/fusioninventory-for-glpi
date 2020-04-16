@@ -280,8 +280,10 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       $a_inventory['fusioninventorycomputer']['serialized_inventory'] =
                Toolbox::addslashes_deep($serialized);
 
-      $this->items_id = $computer->add(['serial'      => 'XB63J7D',
-                                             'entities_id' => 0]);
+      $this->items_id = (int)$computer->add([
+         'serial'      => 'XB63J7D',
+         'entities_id' => 0
+      ]);
 
       $this->assertGreaterThan(0, $this->items_id, false);
       $pfiComputerLib->updateComputer($a_inventory, $this->items_id, false);
@@ -293,6 +295,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       $GLPIlog->testSQLlogs();
       $GLPIlog->testPHPlogs();
 
+      var_dump($this->items_id);
       return $this->items_id;
    }
 
@@ -304,7 +307,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerGeneral($items_id) {
       global $DB;
 
-
+        var_dump($items_id);
       $computer = new Computer();
 
       $this->assertTrue($computer->getFromDB($items_id));
