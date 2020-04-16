@@ -309,7 +309,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $computer = new Computer();
 
-      $this->assertTrue($computer->getFromDB(1));
+      $this->assertTrue($computer->getFromDB($this->items_id));
       unset($computer->fields['date_mod']);
       unset($computer->fields['date_creation']);
       $a_reference = [
@@ -384,13 +384,13 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
 
       $pfiComputerComputer = new PluginFusioninventoryInventoryComputerComputer();
-      $a_computer = current($pfiComputerComputer->find(['computers_id' => 1], [], 1));
+      $a_computer = current($pfiComputerComputer->find(['computers_id' => $this->items_id], [], 1));
       unset($a_computer['last_fusioninventory_update']);
       $serialized_inventory = $a_computer['serialized_inventory'];
       unset($a_computer['serialized_inventory']);
       $a_reference = [
           'id'                                        => '1',
-          'computers_id'                              => '1',
+          'computers_id'                              => $this->items_id,
           'operatingsystem_installationdate'          => '2012-10-16 08:12:56',
           'last_boot'                                 => '2018-06-11 08:03:32',
           'winowner'                                  => 'test',
@@ -428,7 +428,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     */
    public function SoftwareGentiumBasicadded() {
       global $DB;
-
 
       $software = new Software();
 
@@ -640,7 +639,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_reference = [
           'id'                   => '1',
-          'computers_id'         => '1',
+        'computers_id'         => $this->items_id,
           'softwareversions_id'  => '1',
           'is_deleted_computer'  => '0',
           'is_template_computer' => '0',
@@ -668,7 +667,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_reference = [
           'id'                   => '2',
-          'computers_id'         => '1',
+          'computers_id'         => $this->items_id,
           'softwareversions_id'  => '2',
           'is_deleted_computer'  => '0',
           'is_template_computer' => '0',
@@ -696,7 +695,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_reference = [
           'id'                   => '3',
-          'computers_id'         => '1',
+          'computers_id'         => $this->items_id,
           'softwareversions_id'  => '3',
           'is_deleted_computer'  => '0',
           'is_template_computer' => '0',
@@ -1038,7 +1037,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       $this->assertEquals(1, count($a_dataMonit), "Must have 1 monitor created");
 
       $a_dataLink = getAllDatasFromTable("glpi_computers_items",
-         ['itemtype' => 'Monitor', 'computers_id' => '1']);
+         ['itemtype' => 'Monitor', 'computers_id' => $this->items_id]);
 
       $this->assertEquals(1, count($a_dataLink), "Number of monitors not right");
 
@@ -1099,7 +1098,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
 
       $a_dataLink = getAllDatasFromTable("glpi_computers_items",
-         ['itemtype' => 'Printer', 'computers_id' => '1']);
+         ['itemtype' => 'Printer', 'computers_id' => $this->items_id]);
 
       $this->assertEquals(1, count($a_dataLink), "Number of printers not right");
 
