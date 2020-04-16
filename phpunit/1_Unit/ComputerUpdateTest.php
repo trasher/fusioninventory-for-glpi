@@ -42,10 +42,6 @@
 
 class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
-   public $items_id = 0;
-   public $datelatupdate = '';
-
-
    /**
     * @test
     */
@@ -296,6 +292,8 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       $GLPIlog = new GLPIlogs();
       $GLPIlog->testSQLlogs();
       $GLPIlog->testPHPlogs();
+
+      return $this->items_id;
    }
 
 
@@ -303,13 +301,13 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     * @test
     * @depends AddComputer
     */
-   public function ComputerGeneral() {
+   public function ComputerGeneral($items_id) {
       global $DB;
 
 
       $computer = new Computer();
 
-      $this->assertTrue($computer->getFromDB($this->items_id));
+      $this->assertTrue($computer->getFromDB($items_id));
       unset($computer->fields['date_mod']);
       unset($computer->fields['date_creation']);
       $a_reference = [
@@ -353,7 +351,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_reference = [
          'id'                                => '1',
-         'items_id'                          => '1',
+         'items_id'                          => $items_id,
          'itemtype'                          => 'Computer',
          'operatingsystems_id'               => '1',
          'operatingsystemversions_id'        => '1',
@@ -379,18 +377,18 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     * @test
     * @depends AddComputer
     */
-   public function ComputerExtension() {
+   public function ComputerExtension($items_id) {
       global $DB;
 
 
       $pfiComputerComputer = new PluginFusioninventoryInventoryComputerComputer();
-      $a_computer = current($pfiComputerComputer->find(['computers_id' => $this->items_id], [], 1));
+      $a_computer = current($pfiComputerComputer->find(['computers_id' => $items_id], [], 1));
       unset($a_computer['last_fusioninventory_update']);
       $serialized_inventory = $a_computer['serialized_inventory'];
       unset($a_computer['serialized_inventory']);
       $a_reference = [
           'id'                                        => '1',
-          'computers_id'                              => $this->items_id,
+          'computers_id'                              => $items_id,
           'operatingsystem_installationdate'          => '2012-10-16 08:12:56',
           'last_boot'                                 => '2018-06-11 08:03:32',
           'winowner'                                  => 'test',
@@ -629,7 +627,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     * @test
     * @depends AddComputer
     */
-   public function ComputerSoftwareGentiumBasic() {
+   public function ComputerSoftwareGentiumBasic($items_id) {
       global $DB;
 
 
@@ -639,7 +637,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_reference = [
           'id'                   => '1',
-        'computers_id'         => $this->items_id,
+        'computers_id'         => $items_id,
           'softwareversions_id'  => '1',
           'is_deleted_computer'  => '0',
           'is_template_computer' => '0',
@@ -657,7 +655,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     * @test
     * @depends AddComputer
     */
-   public function ComputerSoftwareImageMagick() {
+   public function ComputerSoftwareImageMagick($items_id) {
       global $DB;
 
 
@@ -667,7 +665,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_reference = [
           'id'                   => '2',
-          'computers_id'         => $this->items_id,
+          'computers_id'         => $items_id,
           'softwareversions_id'  => '2',
           'is_deleted_computer'  => '0',
           'is_template_computer' => '0',
@@ -685,7 +683,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     * @test
     * @depends AddComputer
     */
-   public function ComputerSoftwareORBit2() {
+   public function ComputerSoftwareORBit2($items_id) {
       global $DB;
 
 
@@ -695,7 +693,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
 
       $a_reference = [
           'id'                   => '3',
-          'computers_id'         => $this->items_id,
+          'computers_id'         => $items_id,
           'softwareversions_id'  => '3',
           'is_deleted_computer'  => '0',
           'is_template_computer' => '0',
@@ -1028,7 +1026,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     * @test
     * @depends AddComputer
     */
-   public function ComputerMonitor() {
+   public function ComputerMonitor($items_id) {
       global $DB;
 
 
@@ -1037,7 +1035,7 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       $this->assertEquals(1, count($a_dataMonit), "Must have 1 monitor created");
 
       $a_dataLink = getAllDatasFromTable("glpi_computers_items",
-         ['itemtype' => 'Monitor', 'computers_id' => $this->items_id]);
+         ['itemtype' => 'Monitor', 'computers_id' => $items_id]);
 
       $this->assertEquals(1, count($a_dataLink), "Number of monitors not right");
 
@@ -1093,12 +1091,12 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     * @test
     * @depends AddComputer
     */
-   public function ComputerPrinter() {
+   public function ComputerPrinter($items_id) {
       global $DB;
 
 
       $a_dataLink = getAllDatasFromTable("glpi_computers_items",
-         ['itemtype' => 'Printer', 'computers_id' => $this->items_id]);
+         ['itemtype' => 'Printer', 'computers_id' => $items_id]);
 
       $this->assertEquals(1, count($a_dataLink), "Number of printers not right");
 
@@ -1242,18 +1240,18 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
       $a_inventory['fusioninventorycomputer']['serialized_inventory'] =
                Toolbox::addslashes_deep($serialized);
 
-      $this->items_id = $computer->add(['serial'      => 'XB63J7J1',
+      $items_id = $computer->add(['serial'      => 'XB63J7J1',
                                              'entities_id' => 0]);
 
       $_SESSION['glpiactive_entity'] = 0;
-      $pfiComputerLib->updateComputer($a_inventory, $this->items_id, false);
+      $pfiComputerLib->updateComputer($a_inventory, $items_id, false);
 
       $a_software = $software->find(['name' => 'acrobat_Reader_9.2']);
       $this->assertEquals(1, count($a_software), "First computer added");
 
       $a_inventory['Computer']['name'] = "pcJ2";
       $a_inventory['Computer']['serial'] = "XB63J7J2";
-      $pfiComputerLib->updateComputer($a_inventory, $this->items_id, false);
+      $pfiComputerLib->updateComputer($a_inventory, $items_id, false);
 
       $a_software = $software->find(['name' => 'acrobat_Reader_9.2']);
       $this->assertEquals(1, count($a_software), "Second computer added");
