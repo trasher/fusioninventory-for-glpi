@@ -650,12 +650,20 @@ class PluginFusioninventoryLock extends CommonDBTM{
       global $DB;
 
       $db_lock = $DB->fetch_assoc(PluginFusioninventoryLock::getLock($p_table, $p_items_id));
-      $lock_fields = $db_lock["tablefields"];
-      $lock = importArrayFromDB($lock_fields);
+      if ($db_lock != null) {
+        $lock_fields = $db_lock["tablefields"];
+        $lock = importArrayFromDB($lock_fields);
+      } else {
+        $lock = [];
+      }
       if ($p_items_id != 0) {
          $db_lock = $DB->fetch_assoc(PluginFusioninventoryLock::getLock($p_table, 0));
-         $lock_fields = $db_lock["tablefields"];
-         $lockItemtype = importArrayFromDB($lock_fields);
+         if ($db_lock != null) {
+            $lock_fields = $db_lock["tablefields"];
+            $lockItemtype = importArrayFromDB($lock_fields);
+         } else {
+            $lockItemtype = [];
+         }
          $lock = array_merge($lock, $lockItemtype);
       }
       return $lock;

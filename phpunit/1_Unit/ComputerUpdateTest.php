@@ -52,7 +52,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function AddComputer() {
       global $DB;
 
-      $DB->connect();
 
       $_SESSION['plugin_fusioninventory_classrulepassed'] = '';
 
@@ -307,11 +306,10 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerGeneral() {
       global $DB;
 
-      $DB->connect();
 
       $computer = new Computer();
 
-      $computer->getFromDB(1);
+      $this->assertTrue($computer->getFromDB(1));
       unset($computer->fields['date_mod']);
       unset($computer->fields['date_creation']);
       $a_reference = [
@@ -384,7 +382,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerExtension() {
       global $DB;
 
-      $DB->connect();
 
       $pfiComputerComputer = new PluginFusioninventoryInventoryComputerComputer();
       $a_computer = current($pfiComputerComputer->find(['computers_id' => 1], [], 1));
@@ -418,7 +415,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function Softwareadded() {
       global $DB;
 
-      $DB->connect();
 
       $nbsoftware = countElementsInTable("glpi_softwares");
 
@@ -433,7 +429,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareGentiumBasicadded() {
       global $DB;
 
-      $DB->connect();
 
       $software = new Software();
 
@@ -474,7 +469,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareImageMagickadded() {
       global $DB;
 
-      $DB->connect();
 
       $software = new Software();
 
@@ -515,7 +509,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareORBit2added() {
       global $DB;
 
-      $DB->connect();
 
       $software = new Software();
 
@@ -556,7 +549,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareVersionGentiumBasicadded() {
       global $DB;
 
-      $DB->connect();
 
       $softwareVersion = new SoftwareVersion();
 
@@ -585,7 +577,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareVersionImageMagickadded() {
       global $DB;
 
-      $DB->connect();
 
       $softwareVersion = new SoftwareVersion();
 
@@ -614,7 +605,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function SoftwareVersionORBit2added() {
       global $DB;
 
-      $DB->connect();
 
       $softwareVersion = new SoftwareVersion();
 
@@ -643,7 +633,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerSoftwareGentiumBasic() {
       global $DB;
 
-      $DB->connect();
 
       $computer_SoftwareVersion = new Computer_SoftwareVersion();
 
@@ -672,7 +661,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerSoftwareImageMagick() {
       global $DB;
 
-      $DB->connect();
 
       $computer_SoftwareVersion = new Computer_SoftwareVersion();
 
@@ -701,7 +689,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerSoftwareORBit2() {
       global $DB;
 
-      $DB->connect();
 
       $computer_SoftwareVersion = new Computer_SoftwareVersion();
 
@@ -730,7 +717,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerProcessor() {
       global $DB;
 
-      $DB->connect();
 
       $a_data = getAllDatasFromTable("glpi_deviceprocessors");
       foreach ($a_data as $id=>$data) {
@@ -777,7 +763,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerProcessorLink() {
       global $DB;
 
-      $DB->connect();
 
       $a_dataLink = getAllDatasFromTable("glpi_items_deviceprocessors",
          ['itemtype' => 'Computer', 'items_id' => '1']);
@@ -868,7 +853,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerMemory() {
       global $DB;
 
-      $DB->connect();
 
       $a_data = getAllDatasFromTable("glpi_devicememories");
       foreach ($a_data as $id=>$data) {
@@ -913,7 +897,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerMemoryLink() {
       global $DB;
 
-      $DB->connect();
 
       $a_dataLink = getAllDatasFromTable("glpi_items_devicememories",
          ['itemtype' => 'Computer', 'items_id' => '1']);
@@ -996,7 +979,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerNetworkport() {
       global $DB;
 
-      $DB->connect();
 
       $a_dataLink = getAllDatasFromTable("glpi_networkports",
          ['itemtype' => 'Computer', 'items_id' => '1']);
@@ -1050,7 +1032,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerMonitor() {
       global $DB;
 
-      $DB->connect();
 
       $a_dataMonit = getAllDatasFromTable("glpi_monitors");
 
@@ -1116,7 +1097,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
    public function ComputerPrinter() {
       global $DB;
 
-      $DB->connect();
 
       $a_dataLink = getAllDatasFromTable("glpi_computers_items",
          ['itemtype' => 'Printer', 'computers_id' => '1']);
@@ -1177,8 +1157,6 @@ class ComputerUpdateTest extends RestoreDatabase_TestCase {
     */
    public function SoftwareUniqueForTwoComputers() {
       global $DB;
-
-      $DB->connect();
 
       $date = date('Y-m-d H:i:s');
 

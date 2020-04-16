@@ -56,16 +56,8 @@ abstract class Common_TestCase extends TestCase {
       );
    }
 
-
-   protected function setUp() {
-      global $CFG_GLPI, $DB;
-
-      // Force profile in session to SuperAdmin
-      $_SESSION['glpiprofiles'] = ['4' => ['entities' => 0]];
-      $_SESSION['glpi_plugin_fusioninventory_profile']['unmanaged'] = ALLSTANDARDRIGHT;
-      $_SESSION['glpiactiveentities'] = [0, 1];
-      $_SESSION['glpi_use_mode'] = Session::DEBUG_MODE;
-      $_SESSION['glpilanguage'] = 'en_GB';
+   public static function setUpBeforeClass() {
+       global $DB;
 
       include (GLPI_ROOT . "/inc/based_config.php");
       include_once (GLPI_ROOT . "/inc/config.php");
@@ -83,6 +75,35 @@ abstract class Common_TestCase extends TestCase {
       $plugin->getFromDBbyDir("fusioninventory");
       $plugin->activate($plugin->fields['id']);
       $DB->beginTransaction();
+   }
+
+
+   protected function setUp() {
+      global $CFG_GLPI, $DB;
+
+      // Force profile in session to SuperAdmin
+      $_SESSION['glpiprofiles'] = ['4' => ['entities' => 0]];
+      $_SESSION['glpi_plugin_fusioninventory_profile']['unmanaged'] = ALLSTANDARDRIGHT;
+      $_SESSION['glpiactiveentities'] = [0, 1];
+      $_SESSION['glpi_use_mode'] = Session::DEBUG_MODE;
+      $_SESSION['glpilanguage'] = 'en_GB';
+
+      /*include (GLPI_ROOT . "/inc/based_config.php");
+      include_once (GLPI_ROOT . "/inc/config.php");
+      include_once(GLPI_CONFIG_DIR . "/config_db.php");
+      include_once (GLPI_ROOT . "/inc/define.php");
+
+      $DB = new DB();
+      $DB->connect();
+
+      $plugin = new Plugin();
+      $DB->connect();
+      $plugin->checkStates(true);
+      $plugin->init();
+      require_once(GLPI_ROOT . "/plugins/fusioninventory/inc/module.class.php");
+      $plugin->getFromDBbyDir("fusioninventory");
+      $plugin->activate($plugin->fields['id']);
+      $DB->beginTransaction();*/
 
       file_put_contents(GLPI_ROOT."/files/_log/sql-errors.log", '');
       file_put_contents(GLPI_ROOT."/files/_log/php-errors.log", '');
@@ -107,16 +128,17 @@ abstract class Common_TestCase extends TestCase {
       ini_set("max_execution_time", "0");
    }
 
-
    protected function tearDown() {
        global $DB;
 
       $GLPIlog = new GLPIlogs();
       $GLPIlog->testSQLlogs();
       $GLPIlog->testPHPlogs();
-
-      $DB->rollback();
    }
 
+   public static function tearDownAfterClass() {
+      global $DB;
+      $DB->rollback();
+   }
 
 }
