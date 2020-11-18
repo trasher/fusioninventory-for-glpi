@@ -332,6 +332,8 @@ class PluginFusioninventoryCommunication {
       //$rawdata = gzcompress('');
       // ********** End ********** //
 
+      $main_start = microtime(true);
+
       $config = new PluginFusioninventoryConfig();
       $user   = new User();
 
@@ -486,8 +488,50 @@ class PluginFusioninventoryCommunication {
             $communication->sendMessage($compressmode);
          }
       }
+
+      // * For benchs
+      $exec_time = round(microtime(true) - $main_start, 5);
+      $benchs = [
+         'exectime'  => $exec_time,
+         'mem'       => \Toolbox::getSize(memory_get_usage()),
+         'mem_real'  => \Toolbox::getSize(memory_get_usage(true)),
+         'mem_peak'  => \Toolbox::getSize(memory_get_peak_usage())
+
+      ];
+
+      $output = '';
+      foreach ($benchs as $key => $value) {
+         $label = $key;
+         switch ($label) {
+            case 'exectime':
+               $output .= "\t\tExcution time:       ";
+               break;
+            case 'mem':
+               $output .= "\t\tMemory usage:        ";
+               break;
+            case 'mem_real':
+               $output .= "\t\tMemory usage (real): ";
+               break;
+            case 'mem_peak':
+               $output .= "\t\tMemory peak:         ";
+               break;
+         }
+
+         if ($key == 'exectime') {
+            $output .= sprintf(
+               _n('%s second', '%s seconds', $value),
+               $value
+            );
+         } else {
+            $output .= \Toolbox::getSize($value);
+         }
+         $output .= "\n";
+      }
+
+      \Toolbox::logInFile(
+         "bench_fusioninventory",
+         $output
+      );
    }
-
-
 }
 
