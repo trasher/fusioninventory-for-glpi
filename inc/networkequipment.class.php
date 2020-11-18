@@ -247,7 +247,7 @@ class PluginFusioninventoryNetworkEquipment extends PluginFusioninventoryItem {
       }
 
       $query = "SELECT `glpi_networkports`.`id`, `instantiation_type`,
-         `ifdescr`,
+         `glpi_plugin_fusioninventory_networkports`.`ifdescr`,
          `glpi_plugin_fusioninventory_networkports`.`id` as `fusionid`
       FROM glpi_plugin_fusioninventory_networkports
 
