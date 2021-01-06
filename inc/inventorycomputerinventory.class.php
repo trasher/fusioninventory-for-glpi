@@ -217,20 +217,16 @@ class PluginFusioninventoryInventoryComputerInventory {
       }
 
       foreach ($a_computerinventory['networkport'] as $network) {
-         if (((isset($network['virtualdev']))
-              && ($network['virtualdev'] != 1))
-              OR (!isset($network['virtualdev']))) {
-            if ((isset($network['mac'])) AND (!empty($network['mac']))) {
-               $input['mac'][] = $network['mac'];
+         if ((isset($network['mac'])) AND (!empty($network['mac']))) {
+            $input['mac'][] = $network['mac'];
+         }
+         foreach ($network['ipaddress'] as $ip) {
+            if ($ip != '127.0.0.1' && $ip != '::1') {
+               $input['ip'][] = $ip;
             }
-            foreach ($network['ipaddress'] as $ip) {
-               if ($ip != '127.0.0.1' && $ip != '::1') {
-                  $input['ip'][] = $ip;
-               }
-            }
-            if ((isset($network['subnet'])) AND (!empty($network['subnet']))) {
-               $input['subnet'][] = $network['subnet'];
-            }
+         }
+         if ((isset($network['subnet'])) AND (!empty($network['subnet']))) {
+            $input['subnet'][] = $network['subnet'];
          }
       }
          // Case of virtualmachines
